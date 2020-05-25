@@ -39,21 +39,25 @@ const getAlbums = async (req, res) => {
 
 const addAlbum = async (req, res) => {
 
-	try {const album = await new Album({id:req.body.album_id, foto: req.body.name}).save()
+	try {
+		
+		const album = await new Album({id:req.body.album_id, foto: req.body.name}).save()
 
-	const user = await new User({id:req.user.data.id}).fetch()
-	
+		const user = await new User({id:req.user.data.id}).fetch()
+		
 
-	const result = await user.fotos().attach(foto)
-	console.log(result)
+		const result = await user.fotos().attach(foto)
+		console.log(result)
 
-	res.status(201).send({
-		status: 'success',
-		data: result
+		res.status(201).send({
+			status: 'success',
+			data: result
 	})
 	}
 	
-	catch(err) {res.status(404).send('Foto not found')}
+	catch(err) {
+		
+		res.status(404).send('Album not found')}
 
 }
 
@@ -64,15 +68,23 @@ const addAlbum = async (req, res) => {
  */
 
 const getSingleAlbum = async (req, res) => {
-	const album = await new models.Album({ id: req.params.albumId })
-		.fetch({ withRelated: ['fotos'] });
 
-	res.send({
-		status: 'success',
-		data: {
-			album,
-		}
-	});
+	try {
+		const album = await new models.Album({ id: req.params.albumId })
+			.fetch({ withRelated: ['fotos'] });
+
+		res.send({
+			status: 'success',
+			data: {
+				album,
+			}
+	});}
+	catch (err) {
+		
+		res.status(404).send({
+			status: 'fail',
+			data: 'resource not found'
+	})}
 }
 
 

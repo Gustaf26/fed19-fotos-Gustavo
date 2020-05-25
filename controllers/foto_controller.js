@@ -3,7 +3,7 @@
  */
 
 const models = require('../models');
-const { User, Foto, ALbum } = require('../models');
+const { User, Foto, Album } = require('../models');
 
 /**
  * Get the authenticated user's fotos
@@ -11,13 +11,22 @@ const { User, Foto, ALbum } = require('../models');
  * GET /fotos
  */
 const getFotos = async (req, res) => {
-	// query db for user and eager load the books relation
+
+	// query db for user and eager load the fotos relation
 	let user = null;
+
 	try {
+
 		user = await User.fetchById(req.user.data.id, { withRelated: 'fotos' });
+	
 	} catch (err) {
-		console.error(err);
-		res.sendStatus(404);
+	
+		
+		res.status(404).send({
+
+			status:'fail',
+			data: 'No fotos available for that user'
+		});
 		return;
 	}
 
