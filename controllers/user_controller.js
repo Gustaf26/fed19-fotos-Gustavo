@@ -27,9 +27,9 @@ const index = async (req, res) => {
  *
  * GET /:userId
  */
-const show = async (req, res) => {
+const getSingleUser = async (req, res) => {
 	const user = await new models.User({ id: req.params.userId })
-		.fetch({ withRelated: ['books'] });
+		.fetch({ withRelated: ['fotos'] });
 
 	res.send({
 		status: 'success',
@@ -153,8 +153,9 @@ const destroy = (req, res) => {
 
 module.exports = {
 	index,
+	getSingleUser,
 	show,
 	store,
-	update,
+	//update,
 	destroy,
 }

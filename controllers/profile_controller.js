@@ -8,34 +8,29 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { matchedData, validationResult } = require('express-validator');
-const { User, Book } = require('../models');
+const { User, Foto } = require('../models');
 
 
 /**
- * Add a book to the authenticated user's collection
+ * Add a user
  *
- * POST /books
- * {
- *   "book_id": 4
- * }
+ * POST /profile
+ 
  */
-const addBook = async (req, res) => {
+const addUser = async (req, res) => {
 
-		try {const book = await new Book({id:req.body.book_id}).fetch()
+		try {const user = await new User({id:req.body.user_id, foto: req.body.name}).save()
 
-		const user = await new User({id:req.user.data.id}).fetch()
+	//const user = await new User({id:req.user.data.id}).fetch()
 		
-	
-		const result = await user.books().attach(book)
-		console.log(result)
 
 		res.status(201).send({
 			status: 'success',
-			data: result
+			data: user
 		})
 		}
 		
-		catch(err) {res.status(404).send('Book not found')}
+		catch(err) {res.status(404).send('Foto not found')}
 
 }
 
@@ -67,32 +62,8 @@ const getProfile = async (req, res) => {
 	});
 }
 
-/**
- * Get the authenticated user's books
- *
- * GET /books
- */
-const getBooks = async (req, res) => {
-	// query db for user and eager load the books relation
-	let user = null;
-	try {
-		user = await User.fetchById(req.user.data.id, { withRelated: 'books' });
-	} catch (err) {
-		console.error(err);
-		res.sendStatus(404);
-		return;
-	}
 
-	// get this user's books
-	const books = user.related('books');
-
-	res.send({
-		status: 'success',
-		data: {
-			books,
-		},
-	});
-}
+	
 
 /**
  * Update the authenticated user's profile
@@ -151,7 +122,6 @@ const updateProfile = async (req, res) => {
 
 module.exports = {
 	getProfile,
-	getBooks,
-	updateProfile,
-	addBook
+	addUser
+	//updateProfile,
 }

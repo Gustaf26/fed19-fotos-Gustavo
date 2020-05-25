@@ -4,17 +4,17 @@ const knex = require('knex')({
 	connection: {
 		host: process.env.DB_HOST || '127.0.0.1',
 		port: process.env.DB_PORT || 3306,
-		user: process.env.DB_USER || 'Library',
+		user: process.env.DB_USER || 'test',
 		password: process.env.DB_PASSWORD || 'mysql',
-		database: process.env.DB_NAME || 'Library',
+		database: process.env.DB_NAME || 'test',
 	}
 });
 
 const bookshelf = require('bookshelf')(knex);
 
 const models = {};
-models.Author = require('./Author')(bookshelf);
-models.Book = require('./Book')(bookshelf);
+models.Album = require('./Album')(bookshelf);
+models.Foto = require('./Foto')(bookshelf);
 models.User = require('./User')(bookshelf);
 
 module.exports = {

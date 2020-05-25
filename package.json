@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "dev": "SET DEBUG=06-library:* && nodemon --inspect ./bin/www"
+    "dev": "SET DEBUG=test:* && nodemon --inspect ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",

@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
 	res.send({ status: 'you had me at EHLO' });
 });
 
-router.use('/authors', require('./authors'));
-router.use('/books', require('./books'));
+//router.use('/albums', require('./albums'));
+//router.use('/fotos', require('./fotos'));
 
 // add ability to register
 router.post('/register', [userValidationRules.createRules], authController.register);
