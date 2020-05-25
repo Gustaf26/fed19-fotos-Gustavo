@@ -77,20 +77,17 @@ const addFoto = async (req, res) => {
 
 const getSingleFoto = async (req, res) => {
 
-	try{ const foto = await new models.Foto({ id: req.params.fotoId })
+	try{ 
+		
+		const foto = await new models.Foto({ id: req.params.fotoId })
 
 		.fetch({ withRelated: ['album'] });
 
-		if (foto.related('album').attributes.user_id !== req.user.data.id) {
-
-			throw err
-		}
-
-	res.send({
-		status: 'success',
-		data: {
-			foto,
-		}
+		res.send({
+			status: 'success',
+			data: {
+				foto,
+			}
 	}); }
 
 	catch (err) {res.status(404).send({
