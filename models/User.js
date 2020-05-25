@@ -9,6 +9,9 @@ module.exports = (bookshelf) => {
 		tableName: 'users',
 		albums() {
 			return this.belongsToMany('Album');
+		},
+		fotos(){
+			return this.belongsToMany('Foto')
 		}
 	}, {
 		hashSaltRounds: 10,
