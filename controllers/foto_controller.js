@@ -10,9 +10,11 @@ const { User, Foto, Album } = require('../models');
  *
  * GET /fotos
  */
+
 const getFotos = async (req, res) => {
 
 	// query db for user and eager load the fotos relation
+
 	let user = null;
 
 	try {
@@ -27,10 +29,12 @@ const getFotos = async (req, res) => {
 			status:'fail',
 			data: 'No fotos available for that user'
 		});
+
 		return;
 	}
 
-	// get this user's books
+	// get this user's fotos
+
 	const fotos = user.related('fotos');
 
 	res.send({
@@ -42,13 +46,10 @@ const getFotos = async (req, res) => {
 }
 
 /**
- * Add a book to the authenticated user's collection
+ * Add a foto to the authenticated user's collection
  *
- * POST /books
- * {
- *   "book_id": 4
- * }
  */
+
 const addFoto = async (req, res) => {
 
 	try {const foto = await new Foto({id:req.body.foto_id, foto: req.body.foto}).save()
@@ -60,6 +61,7 @@ const addFoto = async (req, res) => {
 	console.log(result)
 
 	res.status(201).send({
+
 		status: 'success',
 		data: result
 	})
@@ -70,12 +72,13 @@ const addFoto = async (req, res) => {
 }
 
 /**
- * Get a specific resource
- *
  * GET /:fotoId
  */
+
 const getSingleFoto = async (req, res) => {
-	const foto = await new models.Foto({ id: req.params.fotoId })
+
+	try{ const foto = await new models.Foto({ id: req.params.fotoId })
+	
 		.fetch({ withRelated: ['album'] });
 
 	res.send({
@@ -83,7 +86,14 @@ const getSingleFoto = async (req, res) => {
 		data: {
 			foto,
 		}
-	});
+	}); }
+
+	catch (err) {res.status(404).send({
+
+		status: 'Fail',
+		message: 'No such foto found for this user'
+	})}
+	
 }
 
 
@@ -94,6 +104,7 @@ const getSingleFoto = async (req, res) => {
  *
  * DELETE /:bookId
  */
+
 const destroy = (req, res) => {
 	res.status(405).send({
 		status: 'fail',
