@@ -3,6 +3,7 @@
  */
 
 const models = require('../models');
+const { User, Foto, ALbum } = require('../models');
 
 /**
  * Get the authenticated user's fotos

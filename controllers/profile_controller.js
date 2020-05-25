@@ -55,8 +55,6 @@ const getProfile = async (req, res) => {
 		data: {
 			user: {
 				username: user.get('username'),
-				first_name: user.get('first_name'),
-				last_name: user.get('last_name'),
 			},
 		}
 	});

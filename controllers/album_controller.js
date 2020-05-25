@@ -3,11 +3,12 @@
  */
 
 const models = require('../models');
+const { User, Foto, Album } = require('../models');
 
 /**
- * Get the authenticated user's books
+ * 
  *
- * GET /books
+ * GET /albums
  */
 const getAlbums = async (req, res) => {
 	// query db for user and eager load the books relation
