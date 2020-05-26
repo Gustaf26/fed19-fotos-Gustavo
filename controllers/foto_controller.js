@@ -87,8 +87,9 @@ const getSingleFoto = async (req, res) => {
 		
 
 		const userId = foto.related('user').pluck('id')
+		
 
-		if (userId !=req.user.data.id || !foto.user) {
+		if (userId !=req.user.data.id) {
 
 				throw err
 			}
@@ -96,7 +97,12 @@ const getSingleFoto = async (req, res) => {
 		res.send({
 			status: 'success',
 			data: {
-				foto,
+
+				foto: {
+					
+					title: foto.get('title'), 
+					url: foto.get('url')}
+				
 			}
 	}); }
 
