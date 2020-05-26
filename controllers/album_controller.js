@@ -11,13 +11,25 @@ const { User, Foto, Album } = require('../models');
  * GET /albums
  */
 const getAlbums = async (req, res) => {
+
 	// query db for user and eager load the books relation
+	
 	let user = null;
+
 	try {
+
 		user = await User.fetchById(req.user.data.id, { withRelated: 'albums' });
+
 	} catch (err) {
+
 		console.error(err);
-		res.sendStatus(404);
+		res.status(404).send({
+
+			status: 'fail',
+			message: 'resource not found'
+
+		});
+		
 		return;
 	}
 
@@ -25,9 +37,15 @@ const getAlbums = async (req, res) => {
 	const albums = user.related('albums');
 
 	res.send({
+
 		status: 'success',
 		data: {
-			albums,
+
+			albums: {
+
+				titles: albums.map(album=>album.get('title'))
+
+			}
 		},
 	});
 }
@@ -50,6 +68,7 @@ const addAlbum = async (req, res) => {
 		console.log(result)
 
 		res.status(201).send({
+
 			status: 'success',
 			data: result
 	})
@@ -87,7 +106,7 @@ const getSingleAlbum = async (req, res) => {
 			}
 
 			res.send({
-				
+
 				status: 'success',
 				data: {
 					album: {
