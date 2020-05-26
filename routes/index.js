@@ -9,11 +9,10 @@ router.get('/', (req, res) => {
 	res.send({ status: 'you had me at EHLO' });
 });
 
-//router.use('/albums', require('./albums'));
-//router.use('/fotos', require('./fotos'));
-
 // add ability to register
+
 router.post('/register', [userValidationRules.createRules], authController.register);
+
 // add ability to login and get JWT access-token and refresh token
 router.post('/login', authController.login);
 

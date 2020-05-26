@@ -10,47 +10,69 @@ const { User } = require('../models');
  *
  * POST /register
  */
+
 const register = async (req, res) => {
-    // Finds the validation errors in this request and wraps them in an object with handy functions
-    const errors = validationResult(req);
+	
+	// Finds the validation errors in this request and wraps them in an object with handy functions
+
+	const errors = validationResult(req);
+	
     if (!errors.isEmpty()) {
-        console.log("Create user request failed validation:", errors.array());
-        res.status(422).send({
-            status: 'fail',
+	
+		console.log("Create user request failed validation:", errors.array());
+	
+		res.status(422).send({
+	
+			status: 'fail',
             data: errors.array(),
-        });
+	
+		});
         return;
     }
 
     const validData = matchedData(req);
 
     // generate a hash of `validData.password`
-    try {
-        validData.password = await bcrypt.hash(validData.password, User.hashSaltRounds); // hash.salt is returned from bcrypt.hash()
+	
+	try {
+	
+		validData.password = await bcrypt.hash(validData.password, User.hashSaltRounds); // hash.salt is returned from bcrypt.hash()
 
     } catch (error) {
-        res.status(500).send({
-            status: 'error',
+	
+		res.status(500).send({
+	
+			status: 'error',
             message: 'Exception thrown when hashing the password.',
-        });
-        throw error;
+	
+		});
+	
+		throw error;
     }
 
     try {
-        const user = await new User(validData).save();
-        console.log("Created new user successfully:", user);
+	
+		const user = await new User(validData).save();
+	
+		console.log("Created new user successfully:", user);
 
         res.status(201).send({
-            status: 'success',
-            data: null,
-        });
+	
+			status: 'success',
+            data: `User with email ${user.get('email')} and password ${user.get('password')} succeded.. Go in to login endpoint to log in`,
+	
+		});
 
     } catch (error) {
-        res.status(500).send({
-            status: 'error',
+	
+		res.status(500).send({
+	
+			status: 'error',
             message: 'Exception thrown in database when creating a new user.',
-        });
-        throw error;
+	
+		});
+	
+		throw error;
     }
 }
 
@@ -59,23 +81,32 @@ const register = async (req, res) => {
  *
  * POST /login
  */
+
 const login = async (req, res) => {
+
 	const user = await User.login(req.body.email, req.body.password);
+	
 	if (!user) {
+
 		res.status(401).send({
+	
 			status: 'fail',
 			data: 'Authentication Required.',
 		});
+	
 		return;
 	}
 
 	// construct jwt payload
+	
 	const payload = {
 
 		data : {
+	
 		id: user.get('id'),
 		email: user.get('email')}
-	//	is_admin: user.get('is_admin'),}
+
+		//	is_admin: user.get('is_admin'),}
 	};
 
 	// sign payload and get access-token
@@ -85,6 +116,7 @@ const login = async (req, res) => {
 	const refresh_token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_LIFETIME || '1w' });
 
 	res.send({
+
 		status: 'success',
 		data: {
 			access_token,
@@ -98,13 +130,19 @@ const login = async (req, res) => {
  *
  * POST /refresh
  */
+
 const refresh = (req, res) => {
+
 	const token = getTokenFromHeaders(req);
 	console.log(token)
+	
 	if (!token) {
+
 		res.status(401).send({
+
 			status: 'fail',
 			data: 'No token found in request headers.'
+
 		});
 		return;
 	}
@@ -124,17 +162,22 @@ const refresh = (req, res) => {
 
 		// send the access token to the client
 		res.send({
+
 			status: 'success',
 			data: {
+
 				access_token,
 			}
 		})
 
 	} catch (err) {
+
 		res.status(403).send({
+
 			status: 'fail',
 			data: 'Invalid token.',
 		});
+
 		return;
 	}
 }
@@ -162,6 +205,7 @@ const getTokenFromHeaders = (req) => {
 }
 
 module.exports = {
+
 	login,
 	refresh,
 	register,

@@ -89,6 +89,7 @@ const addAlbum = async (req, res) => {
 const getSingleAlbum = async (req, res) => {
 
 	const joker = await new models.Album({ id: req.params.albumId })
+
 			.fetch({ withRelated: ['user'] });
 
 	const userId = joker.related('user').pluck('id')
@@ -108,6 +109,7 @@ const getSingleAlbum = async (req, res) => {
 			res.send({
 
 				status: 'success',
+				
 				data: {
 					album: {
 
