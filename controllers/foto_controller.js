@@ -77,15 +77,18 @@ const addFoto = async (req, res) => {
 
 const getSingleFoto = async (req, res) => {
 
+	
+
 	try{ 
 		
 		const foto = await new models.Foto({ id: req.params.fotoId })
 
-		.fetch({ withRelated: 'user' });
-
+		.fetch({ withRelated: ['user'] });
 		
 
-		if (!foto.user){
+		const userId = foto.related('user').pluck('id')
+
+		if (userId !=req.user.data.id || !foto.user) {
 
 				throw err
 			}

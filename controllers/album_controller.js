@@ -73,9 +73,9 @@ const getSingleAlbum = async (req, res) => {
 		const album = await new models.Album({ id: req.params.albumId })
 			.fetch({ withRelated: ['fotos'] });
 
-			if (album.attributes.user_id !== req.user.data.id) {
+			// if (album.attributes.user_id !== req.user.data.id) {
 
-					throw err}
+			// 		throw err}
 
 			res.send({
 				status: 'success',

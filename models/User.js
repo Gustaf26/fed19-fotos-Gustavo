@@ -20,9 +20,9 @@ module.exports = (bookshelf) => {
 			return new this({ id }).fetch(fetchOptions);
 		},
 
-		async login(username, password) {
+		async login(email, password) {
 			// check if user exists
-			const user = await new this({ username }).fetch({ require: false });
+			const user = await new this({ email }).fetch({ require: false });
 			if (!user) {
 				return false;
 			}

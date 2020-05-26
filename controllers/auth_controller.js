@@ -60,7 +60,7 @@ const register = async (req, res) => {
  * POST /login
  */
 const login = async (req, res) => {
-	const user = await User.login(req.body.username, req.body.password);
+	const user = await User.login(req.body.email, req.body.password);
 	if (!user) {
 		res.status(401).send({
 			status: 'fail',
@@ -74,7 +74,7 @@ const login = async (req, res) => {
 
 		data : {
 		id: user.get('id'),
-		username: user.get('username')}
+		email: user.get('email')}
 	//	is_admin: user.get('is_admin'),}
 	};
 
