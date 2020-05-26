@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "dev": "SET DEBUG=test:* && nodemon --inspect ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "SET DEBUG=test:* && node --inspect ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -20,6 +20,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1"
   },
+  "engines": {"node": "12.x"},
   "devDependencies": {},
   "main": "app.js",
   "author": "",
