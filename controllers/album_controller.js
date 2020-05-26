@@ -69,25 +69,40 @@ const addAlbum = async (req, res) => {
 
 const getSingleAlbum = async (req, res) => {
 
+	const joker = await new models.Album({ id: req.params.albumId })
+			.fetch({ withRelated: ['user'] });
+
+	const userId = joker.related('user').pluck('id')
+
 	try {
+
 		const album = await new models.Album({ id: req.params.albumId })
+
 			.fetch({ withRelated: ['fotos'] });
-
-			// if (album.attributes.user_id !== req.user.data.id) {
-
-			// 		throw err}
+	
+		if (userId !=req.user.data.id) {
+	
+			throw err
+	
+			}
 
 			res.send({
+				
 				status: 'success',
 				data: {
-					album,
+					album: {
+
+						title: album.get('title'),
+						fotoTitles: album.related('fotos').pluck('title'),
+						fotoUrls: album.related('fotos').pluck('url')
+					}
 			}
 	});}
 	catch (err) {
 		
 		res.status(404).send({
 			status: 'fail',
-			data: 'resource not found'
+			data: 'resource not found or not belonging to current user'
 	})}
 }
 

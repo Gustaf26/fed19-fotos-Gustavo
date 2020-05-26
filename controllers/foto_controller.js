@@ -38,6 +38,7 @@ const getFotos = async (req, res) => {
 	const fotos = user.related('fotos');
 
 	res.send({
+
 		status: 'success',
 		data: {
 			fotos,
@@ -52,20 +53,22 @@ const getFotos = async (req, res) => {
 
 const addFoto = async (req, res) => {
 
-	try {const foto = await new Foto({id:req.body.foto_id, foto: req.body.foto}).save()
+	try {
+		
+		const foto = await new Foto({id:req.body.foto_id, foto: req.body.foto}).save()
 
-	const user = await new User({id:req.user.data.id}).fetch()
-	
+		const user = await new User({id:req.user.data.id}).fetch()
+		
 
-	const result = await user.fotos().attach(foto)
-	console.log(result)
+		const result = await user.fotos().attach(foto)
+		console.log(result)
 
-	res.status(201).send({
+		res.status(201).send({
 
-		status: 'success',
-		data: result
-	})
-	}
+			status: 'success',
+			data: result
+			
+	})}
 	
 	catch(err) {res.status(404).send('Foto not found')}
 
@@ -77,27 +80,25 @@ const addFoto = async (req, res) => {
 
 const getSingleFoto = async (req, res) => {
 
-	
-
 	try{ 
 		
 		const foto = await new models.Foto({ id: req.params.fotoId })
 
-		.fetch({ withRelated: ['user'] });
-		
+			.fetch({ withRelated: ['user'] });	
 
 		const userId = foto.related('user').pluck('id')
-		
-
+	
 		if (userId !=req.user.data.id) {
 
-				throw err
+			throw err
+
 			}
 
 		res.send({
+
 			status: 'success',
 			data: {
-
+				
 				foto: {
 					
 					title: foto.get('title'), 
@@ -110,6 +111,7 @@ const getSingleFoto = async (req, res) => {
 
 		status: 'Fail',
 		message: 'No such foto found for this user'
+
 	})}
 	
 }
