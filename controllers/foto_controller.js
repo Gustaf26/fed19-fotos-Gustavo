@@ -81,7 +81,14 @@ const getSingleFoto = async (req, res) => {
 		
 		const foto = await new models.Foto({ id: req.params.fotoId })
 
-		.fetch({ withRelated: ['album'] });
+		.fetch({ withRelated: 'user' });
+
+		
+
+		if (!foto.user){
+
+				throw err
+			}
 
 		res.send({
 			status: 'success',
