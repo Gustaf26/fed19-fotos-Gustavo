@@ -59,19 +59,16 @@ const addAlbum = async (req, res) => {
 
 	try {
 		
-		const album = await new Album({id:req.body.album_id, foto: req.body.name}).save()
+		const album = await new Album({title: req.body.title}).save()
 
 		const user = await new User({id:req.user.data.id}).fetch()
 		
-
-		const result = await user.fotos().attach(foto)
-		console.log(result)
-
+		const result = await user.albums().attach(album)
+		
 		res.status(201).send({
 
 			status: 'success',
-			data: result
-	})
+			data: result})
 	}
 	
 	catch(err) {
@@ -109,7 +106,7 @@ const getSingleAlbum = async (req, res) => {
 			res.send({
 
 				status: 'success',
-				
+
 				data: {
 					album: {
 
@@ -119,6 +116,7 @@ const getSingleAlbum = async (req, res) => {
 					}
 			}
 	});}
+
 	catch (err) {
 		
 		res.status(404).send({
@@ -129,17 +127,6 @@ const getSingleAlbum = async (req, res) => {
 
 
 
-/**
- * Update a specific resource
- *
- * POST /:authorId
- */
-const update = (req, res) => {
-	res.status(405).send({
-		status: 'fail',
-		message: 'Method Not Allowed.',
-	});
-}
 
 /**
  * Destroy a specific resource
@@ -154,10 +141,9 @@ const destroy = (req, res) => {
 }
 
 module.exports = {
-	//index,
+	
 	addAlbum,
 	getAlbums,
 	getSingleAlbum,
-	//update,
 	//destroy,
 }
