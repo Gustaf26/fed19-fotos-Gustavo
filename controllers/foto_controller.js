@@ -149,31 +149,39 @@ const deleteFoto = async (req, res) => {
 
 	try { 
 		
-		const foto = await foto_user.fetch({ withRelated: ['album'] });	
+		const foto = await foto_user.fetch({ withRelated: ['album']});	
 
-		if (!foto) {
+		if (!foto.related('album').length) {
 
-				throw err
-	
-				}
+			const delFoto = await foto.destroy()
 
-		const albumId = foto.related('album').pluck('id')
+			res.status(200).send({
 
-		const foto_album = await new models.Album({id: albumId}).fetch()
-		
-		const dettaching = foto_album.fotos().detach(foto)
+				status: 'success',
+				data: `Foto successfully deleted`
 
-		const delFoto = await foto.destroy()
-		
-		res.status(200).send({
+					})
+			return}
 
-			status: 'success',
-			data: {
+		else {
+			
+			const albumId = foto.related('album').pluck('id')
 
-				message: 'Foto successfully deleted (even from its album)', 
-				messagedb: delFoto}
+			const foto_album = await new models.Album({id: albumId}).fetch()
 
-		})}
+			const albumTitle = foto.related('album').pluck('title')
+
+			const dettaching = foto_album.fotos().detach(foto)
+
+			const delFoto = await foto.destroy()
+			
+			res.status(200).send({
+
+				status: 'success',
+				data: `Foto successfully deleted from album ${albumTitle}`
+
+				})
+		}}
 
 	catch {
 
