@@ -134,11 +134,60 @@ const getSingleAlbum = async (req, res) => {
  * DELETE /:albumId
  */
 
-const destroy = (req, res) => {
-	res.status(405).send({
-		status: 'fail',
-		message: 'Method Not Allowed.',
-	});
+const deleteAlbum = async (req, res) => {
+	
+		const album_user = await new models.Album({ id: req.params.albumId })
+			.fetch({ withRelated: ['user'] });
+
+		const user = album_user.related('user').pluck('id')
+
+		if (user !=req.user.data.id) {
+
+			res.status(404).send({
+
+				status: 'fail',
+				data: 'You are not allowed to delete this album'
+			})
+		return
+
+			}
+
+		try { 
+
+			const album = await album_user.fetch({ withRelated: ['fotos'] });	
+
+			if (!album) {
+
+					throw err
+
+					}
+
+			const fotos = album.related('fotos')
+
+			const dettaching = fotos.map(foto=>album.fotos().detach(foto))
+
+			const delAlbum = await album.destroy()
+
+			res.status(200).send({
+
+				status: 'success',
+				data: {
+
+					message: 'Album successfully deleted (even its fotos)', 
+					messagedb: delAlbum}
+
+		})}
+
+		catch {
+
+		res.status(405).send({
+
+			status: 'fail',
+			message: 'The album you want to delete doesnt exist',
+
+			}); 
+		}
+
 }
 
 module.exports = {
@@ -146,5 +195,5 @@ module.exports = {
 	addAlbum,
 	getAlbums,
 	getSingleAlbum,
-	//destroy,
+	deleteAlbum,
 }

@@ -26,8 +26,11 @@ router.post('/fotos', fotoController.addFoto);
 /* Add a album to this user's collection */
 router.post('/albums', albumController.addAlbum);
 
-/* Get resource's single foto */
+/* Delete resource's single foto */
 router.delete('/fotos/:fotoId', fotoController.deleteFoto);
+
+/* Delete resource's single album */
+router.delete('/albums/:albumId', albumController.deleteAlbum);
 
 
 module.exports = router;
