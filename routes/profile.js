@@ -27,8 +27,4 @@ router.post('/fotos', fotoController.addFoto);
 router.post('/albums', albumController.addAlbum);
 
 
-
-/* Update a specific resource */
-//router.put('/', profileValidationRules.updateProfileRules, profileController.updateProfile);
-
 module.exports = router;
