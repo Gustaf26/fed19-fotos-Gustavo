@@ -55,19 +55,24 @@ const addFoto = async (req, res) => {
 
 	try {
 		
-		const foto = await new Foto({id:req.body.foto_id, foto: req.body.foto}).save()
+		const foto = await new Foto({title: req.body.title, url:req.body.url, comment:req.body.comment}).save()
+
+		const album = await new Album({id: req.body.album_id}).fetch()
 
 		const user = await new User({id:req.user.data.id}).fetch()
 		
-
 		const result = await user.fotos().attach(foto)
-		console.log(result)
+
+		const resultTwo = await foto.album().attach(album)
 
 		res.status(201).send({
 
 			status: 'success',
-			data: result
-			
+			data: {
+				
+				foto: result,
+				album:resultTwo}
+
 	})}
 	
 	catch(err) {res.status(404).send('Foto not found')}
@@ -126,14 +131,17 @@ const getSingleFoto = async (req, res) => {
  */
 
 const destroy = (req, res) => {
+
 	res.status(405).send({
+
 		status: 'fail',
 		message: 'Method Not Allowed.',
+
 	});
 }
 
 module.exports = {
-	//index,
+	
 	getFotos,
 	getSingleFoto,
 	addFoto,
