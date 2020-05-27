@@ -127,7 +127,7 @@ const getSingleFoto = async (req, res) => {
 /**
  * Destroy a specific resource
  *
- * DELETE /:bookId
+ * DELETE /:fotoId
  */
 
 const deleteFoto = async (req, res) => {
@@ -139,10 +139,10 @@ const deleteFoto = async (req, res) => {
 	
 	if (user !=req.user.data.id) {
 
-			res.status(404).send({
+			res.status(403).send({
 
 				status: 'fail',
-				data: 'You are not allowed to delete this foto'
+				data: 'Unauthorized. You are not allowed to delete this foto'
 			})
 		return
 			}
@@ -177,7 +177,7 @@ const deleteFoto = async (req, res) => {
 
 	catch {
 
-		res.status(405).send({
+		res.status(404).send({
 
 			status: 'fail',
 			message: 'The foto you want to delete doesnt exist',

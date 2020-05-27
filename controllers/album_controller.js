@@ -10,15 +10,32 @@ const { User, Foto, Album } = require('../models');
  *
  * GET /albums
  */
+
 const getAlbums = async (req, res) => {
 
-	// query db for user and eager load the books relation
+	// query db for user and albums relation
 	
 	let user = null;
 
 	try {
 
 		user = await User.fetchById(req.user.data.id, { withRelated: 'albums' });
+
+		// get this user's albums
+		const albums = user.related('albums');
+
+		res.send({
+
+			status: 'success',
+			data: {
+
+				albums: {
+
+					titles: albums.map(album=>album.get('title'))
+
+				}
+			},
+		});
 
 	} catch (err) {
 
@@ -32,22 +49,6 @@ const getAlbums = async (req, res) => {
 		
 		return;
 	}
-
-	// get this user's albums
-	const albums = user.related('albums');
-
-	res.send({
-
-		status: 'success',
-		data: {
-
-			albums: {
-
-				titles: albums.map(album=>album.get('title'))
-
-			}
-		},
-	});
 }
 
 /**
@@ -143,10 +144,10 @@ const deleteAlbum = async (req, res) => {
 
 		if (user !=req.user.data.id) {
 
-			res.status(404).send({
+			res.status(403).send({
 
 				status: 'fail',
-				data: 'You are not allowed to delete this album'
+				data: 'Unauthorized. You are not allowed to delete this album'
 			})
 		return
 
@@ -158,9 +159,7 @@ const deleteAlbum = async (req, res) => {
 
 			if (!album) {
 
-					throw err
-
-					}
+					throw err}
 
 			const fotos = album.related('fotos')
 
@@ -180,7 +179,7 @@ const deleteAlbum = async (req, res) => {
 
 		catch {
 
-		res.status(405).send({
+		res.status(404).send({
 
 			status: 'fail',
 			message: 'The album you want to delete doesnt exist',

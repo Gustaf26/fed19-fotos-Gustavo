@@ -1,13 +1,8 @@
-
-
 /**
- * Get the authenticated user's books
- *
- * GET /books
+ * Profile controller
  */
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { matchedData, validationResult } = require('express-validator');
+
+
 const { User, Foto } = require('../models');
 
 
@@ -16,6 +11,7 @@ const { User, Foto } = require('../models');
  *
  * GET /
  */
+
 const getProfile = async (req, res) => {
 	
 	// retrieve authenticated user's profile
