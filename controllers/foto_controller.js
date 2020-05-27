@@ -185,10 +185,10 @@ const deleteFoto = async (req, res) => {
 
 	catch {
 
-		res.status(404).send({
+		res.status(500).send({
 
-			status: 'fail',
-			message: 'The foto you want to delete doesnt exist',
+			status: 'error',
+			message: 'Something not working fine with the database',
 
 			}); 
 		   }
