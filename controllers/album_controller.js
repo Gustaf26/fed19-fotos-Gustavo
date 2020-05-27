@@ -131,8 +131,9 @@ const getSingleAlbum = async (req, res) => {
 /**
  * Destroy a specific resource
  *
- * DELETE /:authorId
+ * DELETE /:albumId
  */
+
 const destroy = (req, res) => {
 	res.status(405).send({
 		status: 'fail',

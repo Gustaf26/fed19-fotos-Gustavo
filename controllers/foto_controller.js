@@ -130,14 +130,61 @@ const getSingleFoto = async (req, res) => {
  * DELETE /:bookId
  */
 
-const destroy = (req, res) => {
+const deleteFoto = async (req, res) => {
 
-	res.status(405).send({
+	const foto_user = await new models.Foto({ id: req.params.fotoId })
+		.fetch({ withRelated: ['user'] });
 
-		status: 'fail',
-		message: 'Method Not Allowed.',
+	const user = foto_user.related('user').pluck('id')
+	
+	if (user !=req.user.data.id) {
 
-	});
+			res.status(404).send({
+
+				status: 'fail',
+				data: 'You are not allowed to delete this foto'
+			})
+		return
+			}
+
+	try { 
+		
+		const foto = await foto_user.fetch({ withRelated: ['album'] });	
+
+		if (!foto) {
+
+				throw err
+	
+				}
+
+		const albumId = foto.related('album').pluck('id')
+
+		const foto_album = await new models.Album({id: albumId}).fetch()
+		
+		const dettaching = foto_album.fotos().detach(foto)
+
+		const delFoto = await foto.destroy()
+		
+		res.status(200).send({
+
+			status: 'success',
+			data: {
+
+				message: 'Foto successfully deleted (even from its album)', 
+				messagedb: delFoto}
+
+		})}
+
+	catch {
+
+		res.status(405).send({
+
+			status: 'fail',
+			message: 'The foto you want to delete doesnt exist',
+
+			}); 
+		   }
+	
 }
 
 module.exports = {
@@ -145,5 +192,5 @@ module.exports = {
 	getFotos,
 	getSingleFoto,
 	addFoto,
-	//destroy,
+	deleteFoto,
 }
