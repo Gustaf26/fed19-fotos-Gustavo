@@ -57,25 +57,23 @@ const addFoto = async (req, res) => {
 		
 		const foto = await new Foto({title: req.body.title, url:req.body.url, comment:req.body.comment}).save()
 
-		const album = await new Album({id: req.body.album_id}).fetch()
-
 		const user = await new User({id:req.user.data.id}).fetch()
 		
 		const result = await user.fotos().attach(foto)
-
-		const resultTwo = await foto.album().attach(album)
 
 		res.status(201).send({
 
 			status: 'success',
 			data: {
 				
-				foto: result,
-				album:resultTwo}
+				foto: result}
+				
 
 	})}
 	
-	catch(err) {res.status(404).send('Foto not found')}
+	catch(err) {
+
+		res.status(500).send('SOmething went wrong with the server, try again later')}
 
 }
 
