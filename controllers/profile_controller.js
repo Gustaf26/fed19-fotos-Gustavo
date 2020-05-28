@@ -3,7 +3,8 @@
  */
 
 
-const { User, Foto } = require('../models');
+const { User, Foto, Album } = require('../models');
+
 
 
 /**

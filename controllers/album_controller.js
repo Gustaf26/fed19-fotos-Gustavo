@@ -4,10 +4,11 @@
 
 const models = require('../models');
 const { User, Foto, Album } = require('../models');
+const { matchedData, validationResult } = require('express-validator');
+
 
 /**
  * 
- *
  * GET /albums
  */
 
@@ -58,9 +59,21 @@ const getAlbums = async (req, res) => {
 
 const addAlbum = async (req, res) => {
 
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log("Create user request failed validation:", errors.array());
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array(),
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
 	try {
 		
-		const album = await new Album({title: req.body.title}).save()
+		const album = await new Album({title: validData.title}).save()
 
 		const user = await new User({id:req.user.data.id}).fetch()
 		
@@ -135,6 +148,15 @@ const getSingleAlbum = async (req, res) => {
 	})}
 }
 
+/**
+ * 
+ * Update album attributes 
+ */
+
+const updateAlbum = (req,res)=> {
+
+
+}
 
 /**
  * 
@@ -245,5 +267,6 @@ module.exports = {
 	getAlbums,
 	getSingleAlbum,
 	deleteAlbum,
-	addToAlbum
+	addToAlbum,
+	updateAlbum
 }
