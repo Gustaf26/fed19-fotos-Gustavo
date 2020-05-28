@@ -153,8 +153,50 @@ const getSingleAlbum = async (req, res) => {
  * Update album attributes 
  */
 
-const updateAlbum = (req,res)=> {
+const updateAlbum = async (req,res)=> {
 
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log("Create user request failed validation:", errors.array());
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array(),
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
+	const existingAlbum = await new Album({id: req.params.albumId}).fetch({ withRelated: ['user'] })
+
+	if (!existingAlbum.related('user').pluck('id')==req.user.data.id || !existingAlbum) {
+
+		res.status(403).send({
+
+			status: 'fail',
+			data: 'You are not allowed to update this album or the album doesnt exist'
+		})
+
+		return
+	}
+
+	try {
+		
+		const album = await new Album({id: req.params.albumId, title: validData.title}).save()
+
+		const user = await new User({id:req.user.data.id}).fetch()
+		
+		const result = await user.albums().attach(album)
+		
+		res.status(201).send({
+
+			status: 'success',
+			data: result})
+	}
+	
+	catch(err) {
+		
+		res.status(404).send('Album not found')}
 
 }
 
@@ -254,10 +296,7 @@ const deleteAlbum = async (req, res) => {
 			res.status(200).send({
 
 				status: 'success',
-				data: {
-
-					message: 'Album successfully deleted (even its fotos)', 
-					messagedb: delAlbum}
+				data: {'Album successfully deleted'}
 
 		})}
 
