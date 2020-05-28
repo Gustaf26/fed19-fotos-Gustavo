@@ -252,7 +252,7 @@ const updateAlbum = async (req,res)=> {
 		res.status(404).send({
 
 			status: 'fail',
-			data: 'the photo you want to attach doest exist or you are not allowed to add it'
+			data: 'the photo you want to attach doest exist or you are not allowed to add it to this album'
 		})}
  }
 /**
@@ -296,7 +296,7 @@ const deleteAlbum = async (req, res) => {
 			res.status(200).send({
 
 				status: 'success',
-				data: {'Album successfully deleted'}
+				data: 'Album successfully deleted'
 
 		})}
 

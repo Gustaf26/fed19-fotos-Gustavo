@@ -48,7 +48,7 @@ const getFotos = async (req, res) => {
 }
 
 /**
- * Add a foto to the authenticated user's collection
+ * Create a foto
  *
  */
 
