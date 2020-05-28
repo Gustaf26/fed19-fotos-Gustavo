@@ -104,6 +104,19 @@ const getSingleAlbum = async (req, res) => {
 	
 			}
 
+		const fotoTitles = album.related('fotos').pluck('title') 
+		const fotoUrls= album.related('fotos').pluck('url')
+
+		let fotos = []
+
+		for (i=0; i<album.related('fotos').pluck('title').length;i++){
+
+			fotos.push({foto: fotoTitles[i], url: fotoUrls[i]})
+			
+		}
+		 
+
+
 			res.send({
 
 				status: 'success',
@@ -112,8 +125,7 @@ const getSingleAlbum = async (req, res) => {
 					album: {
 
 						title: album.get('title'),
-						fotoTitles: album.related('fotos').pluck('title'),
-						fotoUrls: album.related('fotos').pluck('url')
+						fotos
 					}
 			}
 	});}
