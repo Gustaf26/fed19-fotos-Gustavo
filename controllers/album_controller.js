@@ -112,10 +112,8 @@ const getSingleAlbum = async (req, res) => {
 		for (i=0; i<album.related('fotos').pluck('title').length;i++){
 
 			fotos.push({foto: fotoTitles[i], url: fotoUrls[i]})
-			
-		}
-		 
 
+		}
 
 			res.send({
 
@@ -125,10 +123,9 @@ const getSingleAlbum = async (req, res) => {
 					album: {
 
 						title: album.get('title'),
-						fotos
-					}
-			}
-	});}
+						fotos}}
+				    });
+}
 
 	catch (err) {
 		
@@ -139,8 +136,49 @@ const getSingleAlbum = async (req, res) => {
 }
 
 
+/**
+ * 
+ * Add foto to album
+ */
 
+ const addToAlbum = async (req, res) =>{
 
+	const album = await new models.Album({ id: req.params.albumId }).fetch({ withRelated: ['user'] })
+
+	const userId = album.related('user').pluck('id')
+
+	if (userId !=req.user.data.id) {
+	
+		throw err
+
+		}
+
+	try { 
+		
+		const foto = await new Foto({id:req.body.photo_id}).fetch()
+		
+		const result = await album.fotos().attach(foto)
+
+		const user = await new User({id:req.user.data.id}).fetch()
+
+		const resultTwo = await user.fotos().attach(foto)
+
+		res.send({
+
+			status: 'success',
+			data: `${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`
+
+				});
+			}
+
+		catch (err) {
+
+		res.status(404).send({
+
+			status: 'fail',
+			data: 'the photo you want to attach doest exist or you are not allowed to add it'
+		})}
+ }
 /**
  * Destroy a specific resource
  *
@@ -207,4 +245,5 @@ module.exports = {
 	getAlbums,
 	getSingleAlbum,
 	deleteAlbum,
+	addToAlbum
 }

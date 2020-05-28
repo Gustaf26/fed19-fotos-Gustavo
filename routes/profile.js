@@ -26,6 +26,9 @@ router.post('/fotos', fotoController.addFoto);
 /* Add a album to this user's collection */
 router.post('/albums', albumController.addAlbum);
 
+/*Add an existing foto to album */
+router.post('/albums/:albumId/fotos', albumController.addToAlbum)
+
 /* Delete resource's single foto */
 router.delete('/fotos/:fotoId', fotoController.deleteFoto);
 
