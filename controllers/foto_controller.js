@@ -4,6 +4,7 @@
 
 const models = require('../models');
 const { User, Foto, Album } = require('../models');
+const { matchedData, validationResult } = require('express-validator');
 
 /**
  * Get the authenticated user's fotos
@@ -53,9 +54,21 @@ const getFotos = async (req, res) => {
 
 const addFoto = async (req, res) => {
 
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log("Create user request failed validation:", errors.array());
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array(),
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
 	try {
 		
-		const foto = await new Foto({title: req.body.title, url:req.body.url, comment:req.body.comment}).save()
+		const foto = await new Foto(validData).save()
 
 		const user = await new User({id:req.user.data.id}).fetch()
 		

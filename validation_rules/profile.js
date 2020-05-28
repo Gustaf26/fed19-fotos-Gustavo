@@ -16,7 +16,7 @@ body('comment').optional().isLength({ min: 2 }),]
 
 const createalbum = [body('title').isLength({ min: 3 })]
 
-const addfoto = [body('photo_id').isLength({ min: 3 })]
+const addfoto = [body('photo_id').isLength({ min: 1 })]
 
 
 module.exports = {

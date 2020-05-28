@@ -165,6 +165,18 @@ const updateAlbum = (req,res)=> {
 
  const addToAlbum = async (req, res) =>{
 
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log("Create user request failed validation:", errors.array());
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array(),
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
 	const album = await new models.Album({ id: req.params.albumId }).fetch({ withRelated: ['user'] })
 
 	const userId = album.related('user').pluck('id')
@@ -177,7 +189,7 @@ const updateAlbum = (req,res)=> {
 
 	try { 
 		
-		const foto = await new Foto({id:req.body.photo_id}).fetch()
+		const foto = await new Foto({id:validData.photo_id}).fetch()
 		
 		const result = await album.fotos().attach(foto)
 
