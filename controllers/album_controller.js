@@ -196,7 +196,7 @@ const updateAlbum = async (req,res)=> {
 	
 	catch(err) {
 		
-		res.status(404).send('Album not found')}
+		res.status(500).send('Network error')}
 
 }
 
@@ -312,6 +312,53 @@ const deleteAlbum = async (req, res) => {
 
 }
 
+const deleteInAlbum = async (req,res) => {
+
+
+	const album = await new models.Album({ id: req.params.albumId })
+		.fetch({ withRelated: ['user'] });
+
+	const user = album.related('user').pluck('id')
+
+	const foto = await new models.Foto({ id: req.params.fotoId })
+		.fetch({ withRelated: ['user'] });;	
+
+	const secondUser = foto.related('user').pluck('id')
+	
+	if (user !=req.user.data.id || secondUser !=req.user.data.id) {
+
+			res.status(403).send({
+
+				status: 'fail',
+				data: 'Unauthorized. You are not allowed to delete this foto or to change this album'
+			})
+		return
+			}
+
+	try { 
+		
+		const dettaching = await foto.album().detach(album)
+
+			res.status(200).send({
+
+				status: 'success',
+				data: `Foto successfully dettached from album with title ${album.get('title')}`
+
+					})
+				}
+
+	catch {
+
+		res.status(500).send({
+
+			status: 'error',
+			message: 'Something not working fine with the database',
+
+			}); 
+		   }
+	
+}
+
 module.exports = {
 	
 	addAlbum,
@@ -319,5 +366,6 @@ module.exports = {
 	getSingleAlbum,
 	deleteAlbum,
 	addToAlbum,
-	updateAlbum
+	updateAlbum,
+	deleteInAlbum
 }

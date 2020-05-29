@@ -211,5 +211,5 @@ module.exports = {
 	getFotos,
 	getSingleFoto,
 	addFoto,
-	deleteFoto,
+	deleteFoto
 }
