@@ -20,10 +20,10 @@ const getAlbums = async (req, res) => {
 
 	try {
 
-		user = await User.fetchById(req.user.data.id, { withRelated: 'albums' });
+		user = await new models.User({id:req.user.data.id}).fetch({ withRelated: ['albums']}) 
 
 		// get this user's albums
-		const albums = user.related('albums');
+		const albums = await user.related('albums');
 
 		res.send({
 
@@ -104,6 +104,7 @@ const getSingleAlbum = async (req, res) => {
 			.fetch({ withRelated: ['user'] });
 
 	const userId = joker.related('user').pluck('id')
+
 
 	try {
 

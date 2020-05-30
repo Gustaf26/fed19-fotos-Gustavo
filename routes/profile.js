@@ -38,7 +38,7 @@ router.delete('/fotos/:fotoId', fotoController.deleteFoto);
 /* Delete resource's single album */
 router.delete('/albums/:albumId', albumController.deleteAlbum);
 
-/* Delete resource's single album */
+/* Delete foto from single album */
 router.delete('/albums/:albumId/fotos/:fotoId', albumController.deleteInAlbum);
 
 module.exports = router;
