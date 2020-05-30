@@ -191,11 +191,14 @@ const updateAlbum = async (req,res)=> {
 			data: `Album with title ${album.get('title')} has been updated succesfully`})
 	}
 	
-	catch(err) {
+	catch {
 		
-		res.status(500).send('Network error')}
+		res.status(500).send({
+			
+			status: 'fail',
+			data: ` Network error`})
 
-}
+		}}
 
 /**
  * 
@@ -205,6 +208,7 @@ const updateAlbum = async (req,res)=> {
  const addToAlbum = async (req, res) =>{
 
 	const errors = validationResult(req);
+
 	if (!errors.isEmpty()) {
 		console.log("Create user request failed validation:", errors.array());
 		res.status(422).send({
@@ -222,19 +226,34 @@ const updateAlbum = async (req,res)=> {
 
 	if (userId !=req.user.data.id) {
 	
-		throw err
+		res.status(403).send({
 
+			status: 'fail',
+			data: 'The album you tyr to change is not yours'
+		})
+		return
 		}
 
 	try { 
 		
-		const foto = await new Foto({id:validData.photo_id}).fetch()
+		const foto = await new Foto({id:validData.photo_id}).fetch({ withRelated: ['user'] })
+
+		const foto_userId= foto.related('user').pluck('id')
+
+		console.log(userId, foto_userId)
+
+		if (foto_userId.toString() !== userId.toString()) {
+
+			res.status(403).send({
+
+				status: 'fail',
+				data: 'The foto you are trying to add to this album is not yours'
+			})
+
+			return
+		}
 		
 		const result = await album.fotos().attach(foto)
-
-		const user = await new User({id:req.user.data.id}).fetch()
-
-		const resultTwo = await user.fotos().attach(foto)
 
 		res.send({
 
@@ -246,10 +265,9 @@ const updateAlbum = async (req,res)=> {
 
 		catch (err) {
 
-		res.status(404).send({
-
-			status: 'fail',
-			data: 'the photo you want to attach doest exist or you are not allowed to add it to this album'
+		res.status(500).send({
+			status: 'error',
+			data: 'Network error'
 		})}
  }
 /**
