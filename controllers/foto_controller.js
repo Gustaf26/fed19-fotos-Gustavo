@@ -168,10 +168,6 @@ const updateFoto = async (req,res)=> {
 	try {
 		
 		const foto = await new Foto({id: req.params.fotoId}).save(validData)
-
-		//const user = await new User({id:req.user.data.id}).fetch()
-		
-	//	const result = await user.fotos().attach(foto)
 		
 		res.status(201).send({
 

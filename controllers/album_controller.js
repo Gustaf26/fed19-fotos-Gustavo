@@ -183,16 +183,12 @@ const updateAlbum = async (req,res)=> {
 
 	try {
 		
-		const album = await new Album({id: req.params.albumId, title: validData.title}).save()
-
-		const user = await new User({id:req.user.data.id}).fetch()
-		
-		const result = await user.albums().attach(album)
+		const album = await new Album({id: req.params.albumId}).save(validData)
 		
 		res.status(201).send({
 
 			status: 'success',
-			data: result})
+			data: `Album with title ${album.get('title')} has been updated succesfully`})
 	}
 	
 	catch(err) {
