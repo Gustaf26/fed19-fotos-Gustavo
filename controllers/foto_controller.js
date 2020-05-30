@@ -133,6 +133,57 @@ const getSingleFoto = async (req, res) => {
 }
 
 
+/**
+ * 
+ * Update album attributes 
+ */
+
+const updateFoto = async (req,res)=> {
+
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		console.log("Create user request failed validation:", errors.array());
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array(),
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
+	const existingFoto = await new Foto({id: req.params.fotoId}).fetch({ withRelated: ['user'] })
+
+	if (!existingFoto.related('user').pluck('id')==req.user.data.id || !existingFoto) {
+
+		res.status(403).send({
+
+			status: 'fail',
+			data: 'You are not allowed to update this foto or the foto doesnt exist'
+		})
+
+		return
+	}
+
+	try {
+		
+		const foto = await new Foto({id: req.params.fotoId}).save(validData)
+
+		//const user = await new User({id:req.user.data.id}).fetch()
+		
+	//	const result = await user.fotos().attach(foto)
+		
+		res.status(201).send({
+
+			status: 'success',
+			data: `Foto with title ${foto.get('title')} has been updated`})
+	}
+	
+	catch(err) {
+		
+		res.status(500).send('Network error')}
+
+}
 
 
 /**
@@ -211,5 +262,6 @@ module.exports = {
 	getFotos,
 	getSingleFoto,
 	addFoto,
-	deleteFoto
+	deleteFoto,
+	updateFoto
 }

@@ -29,6 +29,9 @@ router.post('/albums', [profileValidationRules.createalbum],albumController.addA
 /*Update album's attributes*/
 router.put('/albums/:albumId', [profileValidationRules.createalbum],albumController.updateAlbum)
 
+/*Update foto's attributes*/
+router.put('/fotos/:fotoId', [profileValidationRules.updatefoto],fotoController.updateFoto)
+
 /*Add an existing foto to album */
 router.post('/albums/:albumId/fotos', [profileValidationRules.addfoto], albumController.addToAlbum)
 

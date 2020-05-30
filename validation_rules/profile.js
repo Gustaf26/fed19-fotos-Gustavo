@@ -11,17 +11,22 @@ const updateProfileRules = [
 ];
 
 const createfoto = [body('title').isLength({ min: 3 }),
-body('url').isLength({ min: 2 }),
-body('comment').optional().isLength({ min: 2 }),]
+	body('url').isLength({ min: 2 }),
+	body('comment').optional().isLength({ min: 2 }),]
 
 const createalbum = [body('title').isLength({ min: 3 })]
 
 const addfoto = [body('photo_id').isLength({ min: 1 })]
+
+const updatefoto = [body('title').isLength({ min: 1 }),
+	body('url').isLength({ min: 1 }),
+	body('comment').isLength({ min: 1 })]
 
 
 module.exports = {
 	updateProfileRules,
 	createfoto,
 	createalbum,
-	addfoto
+	addfoto,
+	updatefoto
 }
