@@ -220,48 +220,67 @@ const updateAlbum = async (req,res)=> {
 
 	const validData = matchedData(req);
 
+	let val = "";
+
+	for(key in validData) {
+		if(validData.hasOwnProperty(key)) {
+			 val = validData[key];
+		}
+	}
+
 	const album = await new models.Album({ id: req.params.albumId }).fetch({ withRelated: ['user'] })
 
 	const userId = album.related('user').pluck('id')
 
 	if (userId !=req.user.data.id) {
 	
-		res.status(403).send({
+		
+		 res.status(403).send({
 
-			status: 'fail',
-			data: 'The album you tyr to change is not yours'
-		})
-		return
+		 	status: 'fail',
+		 	data: 'The album you tyr to change is not yours'
+		 })
+		 return
 		}
 
 	try { 
+
+		let comment = [];
+		 let allComments=[]
+
+		const allFotos = async () => {
+			
+		for (i=0; i<val.length; i++) {
+
+			let foto = await new Foto({id:val[i].photo_id}).fetch({ withRelated: ['user'] })
+
+			let foto_userId= await foto.related('user').pluck('id')
+
+			if (foto_userId.toString() !== userId.toString()) {
+
+				res.status(403).send({
+
+					status: 'fail',
+					data: 'The foto you are trying to add to this album is not yours'
+				})
+
+			return}
 		
-		const foto = await new Foto({id:validData.photo_id}).fetch({ withRelated: ['user'] })
+		
+			const result = await album.fotos().attach(foto)
+			
+			allComments = comment.push(`${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`)}
 
-		const foto_userId= foto.related('user').pluck('id')
+			res.send({
 
-		console.log(userId, foto_userId)
+				status: 'success',
+				data: allComments});
 
-		if (foto_userId.toString() !== userId.toString()) {
+			return}
 
-			res.status(403).send({
+		allFotos()
 
-				status: 'fail',
-				data: 'The foto you are trying to add to this album is not yours'
-			})
-
-			return
 		}
-		
-		const result = await album.fotos().attach(foto)
-
-		res.send({
-
-			status: 'success',
-			data: `${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`
-
-				});
-			}
 
 		catch (err) {
 
