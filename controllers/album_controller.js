@@ -274,7 +274,7 @@ const updateAlbum = async (req,res)=> {
 			res.send({
 
 				status: 'success',
-				data: allComments});
+				data: comment});
 
 			return}
 
