@@ -4,7 +4,7 @@ const profileController = require('../controllers/profile_controller');
 const fotoController = require('../controllers/foto_controller');
 const albumController = require('../controllers/album_controller');
 const profileValidationRules = require('../validation_rules/profile');
-const { oneOf } = require('express-validator');
+
 
 /* Get resource */
 router.get('/', profileController.getProfile);
@@ -34,7 +34,7 @@ router.put('/albums/:albumId', [profileValidationRules.createalbum],albumControl
 router.put('/fotos/:fotoId', [profileValidationRules.updatefoto],fotoController.updateFoto)
 
 /*Add an existing foto to album */
-router.post('/albums/:albumId/fotos', oneOf([profileValidationRules.addfoto]), albumController.addToAlbum)
+router.post('/albums/:albumId/fotos', [profileValidationRules.addfoto], albumController.addToAlbum)
 
 /* Delete resource's single foto */
 router.delete('/fotos/:fotoId', fotoController.deleteFoto);

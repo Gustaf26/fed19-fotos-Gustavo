@@ -219,15 +219,7 @@ const updateAlbum = async (req,res)=> {
 	}
 
 	const validData = matchedData(req);
-
-	let val = "";
-
-	for(key in validData) {
-		if(validData.hasOwnProperty(key)) {
-			 val = validData[key];
-		}
-	}
-
+	
 	const album = await new models.Album({ id: req.params.albumId }).fetch({ withRelated: ['user'] })
 
 	const userId = album.related('user').pluck('id')
@@ -243,6 +235,8 @@ const updateAlbum = async (req,res)=> {
 		 return
 		}
 
+	let val = validData.photo_id
+
 	try { 
 
 		let comment = [];
@@ -252,7 +246,7 @@ const updateAlbum = async (req,res)=> {
 			
 		for (i=0; i<val.length; i++) {
 
-			let foto = await new Foto({id:val[i].photo_id}).fetch({ withRelated: ['user'] })
+			let foto = await new Foto({id:val[i]}).fetch({ withRelated: ['user'] })
 
 			let foto_userId= await foto.related('user').pluck('id')
 
