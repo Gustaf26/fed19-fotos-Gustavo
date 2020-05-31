@@ -52,7 +52,7 @@ const getFotos = async (req, res) => {
  *
  */
 
-const addFoto = async (req, res) => {
+const storeFoto = async (req, res) => {
 
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -256,7 +256,7 @@ module.exports = {
 	
 	getFotos,
 	getSingleFoto,
-	addFoto,
+	storeFoto,
 	deleteFoto,
 	updateFoto
 }

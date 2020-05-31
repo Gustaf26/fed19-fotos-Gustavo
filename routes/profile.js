@@ -21,11 +21,11 @@ router.get('/albums', albumController.getAlbums);
 /* Get single album */
 router.get('/albums/:albumId', albumController.getSingleAlbum);
 
-/* Add a foto to this user's collection */
-router.post('/photos', [profileValidationRules.createfoto], fotoController.addFoto);
+/* Create a foto to this user's collection */
+router.post('/photos', [profileValidationRules.createfoto], fotoController.storeFoto);
 
-/* Add a album to this user's collection */
-router.post('/albums', [profileValidationRules.createalbum],albumController.addAlbum);
+/* Create a album to this user's collection */
+router.post('/albums', [profileValidationRules.createalbum],albumController.storeAlbum);
 
 /*Update album's attributes*/
 router.put('/albums/:albumId', [profileValidationRules.createalbum],albumController.updateAlbum)

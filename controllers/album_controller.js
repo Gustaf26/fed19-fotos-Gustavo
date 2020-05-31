@@ -54,10 +54,10 @@ const getAlbums = async (req, res) => {
 
 /**
  * 
- * Add album
+ * Create an album
  */
 
-const addAlbum = async (req, res) => {
+const storeAlbum = async (req, res) => {
 
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -265,9 +265,9 @@ const updateAlbum = async (req,res)=> {
 
 		catch {
 
-			res.status(500).send({
-				status: 'error',
-				data: 'Network error'
+			res.status(404).send({
+				status: 'fail',
+				data: 'We cant find a photo with that photo_id'
 			})
 		}
 	}
@@ -428,7 +428,7 @@ const deleteInAlbum = async (req,res) => {
 
 module.exports = {
 	
-	addAlbum,
+	storeAlbum,
 	getAlbums,
 	getSingleAlbum,
 	deleteAlbum,
