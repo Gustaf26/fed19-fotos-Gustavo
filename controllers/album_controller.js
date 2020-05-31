@@ -387,7 +387,7 @@ const deleteInAlbum = async (req,res) => {
 
 	const user = album.related('user').pluck('id')
 
-	const foto = await new models.Foto({ id: req.params.fotoId })
+	const foto = await new models.Foto({ id: req.params.photoId })
 		.fetch({ withRelated: ['user'] });;	
 
 	const secondUser = foto.related('user').pluck('id')
