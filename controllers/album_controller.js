@@ -258,7 +258,7 @@ const updateAlbum = async (req,res)=> {
 					data: 'The foto you are trying to add to this album is not yours'
 				})
 
-			return}
+				return}
 		
 		
 			const result = await album.fotos().attach(foto)
@@ -330,13 +330,13 @@ const deleteAlbum = async (req, res) => {
 
 		catch {
 
-		res.status(404).send({
+			res.status(404).send({
 
-			status: 'fail',
-			message: 'The album you want to delete doesnt exist',
+				status: 'fail',
+				message: 'The album you want to delete doesnt exist',
 
 			}); 
-		}
+			}
 
 }
 

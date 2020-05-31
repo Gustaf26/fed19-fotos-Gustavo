@@ -10,10 +10,10 @@ const profileValidationRules = require('../validation_rules/profile');
 router.get('/', profileController.getProfile);
 
 /* Get resource's fotos */
-router.get('/fotos', fotoController.getFotos);
+router.get('/photos', fotoController.getFotos);
 
 /* Get resource's single foto */
-router.get('/fotos/:fotoId', fotoController.getSingleFoto);
+router.get('/photos/:photoId', fotoController.getSingleFoto);
 
 /* Get albums */
 router.get('/albums', albumController.getAlbums);
@@ -22,7 +22,7 @@ router.get('/albums', albumController.getAlbums);
 router.get('/albums/:albumId', albumController.getSingleAlbum);
 
 /* Add a foto to this user's collection */
-router.post('/fotos', [profileValidationRules.createfoto], fotoController.addFoto);
+router.post('/photos', [profileValidationRules.createfoto], fotoController.addFoto);
 
 /* Add a album to this user's collection */
 router.post('/albums', [profileValidationRules.createalbum],albumController.addAlbum);
@@ -31,18 +31,18 @@ router.post('/albums', [profileValidationRules.createalbum],albumController.addA
 router.put('/albums/:albumId', [profileValidationRules.createalbum],albumController.updateAlbum)
 
 /*Update foto's attributes*/
-router.put('/fotos/:fotoId', [profileValidationRules.updatefoto],fotoController.updateFoto)
+router.put('/photos/:photoId', [profileValidationRules.updatefoto],fotoController.updateFoto)
 
 /*Add an existing foto to album */
-router.post('/albums/:albumId/fotos', [profileValidationRules.addfoto], albumController.addToAlbum)
+router.post('/albums/:albumId/photos', [profileValidationRules.addfoto], albumController.addToAlbum)
 
 /* Delete resource's single foto */
-router.delete('/fotos/:fotoId', fotoController.deleteFoto);
+router.delete('/photos/:photoId', fotoController.deleteFoto);
 
 /* Delete resource's single album */
 router.delete('/albums/:albumId', albumController.deleteAlbum);
 
 /* Delete foto from single album */
-router.delete('/albums/:albumId/fotos/:fotoId', albumController.deleteInAlbum);
+router.delete('/albums/:albumId/photos/:photoId', albumController.deleteInAlbum);
 
 module.exports = router;

@@ -77,12 +77,10 @@ const addFoto = async (req, res) => {
 		res.status(201).send({
 
 			status: 'success',
-			data: {
-				
-				foto: result}
-				
+			data: `Foto with title ${foto.get('title')} and url ${foto.get('url')} has been created`
 
-	})}
+		})}
+		
 	
 	catch(err) {
 
@@ -98,7 +96,7 @@ const getSingleFoto = async (req, res) => {
 
 	try{ 
 		
-		const foto = await new models.Foto({ id: req.params.fotoId })
+		const foto = await new models.Foto({ id: req.params.photoId })
 
 			.fetch({ withRelated: ['user'] });	
 
@@ -141,6 +139,7 @@ const getSingleFoto = async (req, res) => {
 const updateFoto = async (req,res)=> {
 
 	const errors = validationResult(req);
+
 	if (!errors.isEmpty()) {
 		console.log("Create user request failed validation:", errors.array());
 		res.status(422).send({
@@ -152,7 +151,7 @@ const updateFoto = async (req,res)=> {
 
 	const validData = matchedData(req);
 
-	const existingFoto = await new Foto({id: req.params.fotoId}).fetch({ withRelated: ['user'] })
+	const existingFoto = await new Foto({id: req.params.photoId}).fetch({ withRelated: ['user'] })
 
 	if (!existingFoto.related('user').pluck('id')==req.user.data.id || !existingFoto) {
 
@@ -167,7 +166,7 @@ const updateFoto = async (req,res)=> {
 
 	try {
 		
-		const foto = await new Foto({id: req.params.fotoId}).save(validData)
+		const foto = await new Foto({id: req.params.photoId}).save(validData)
 		
 		res.status(201).send({
 
@@ -190,7 +189,7 @@ const updateFoto = async (req,res)=> {
 
 const deleteFoto = async (req, res) => {
 
-	const foto_user = await new models.Foto({ id: req.params.fotoId })
+	const foto_user = await new models.Foto({ id: req.params.photoId })
 		.fetch({ withRelated: ['user'] });
 
 	const user = foto_user.related('user').pluck('id')
