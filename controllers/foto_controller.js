@@ -14,8 +14,6 @@ const { matchedData, validationResult } = require('express-validator');
 
 const getFotos = async (req, res) => {
 
-	// query db for user and eager load the fotos relation
-
 	let user = null;
 
 	try {
@@ -55,12 +53,14 @@ const getFotos = async (req, res) => {
 const storeFoto = async (req, res) => {
 
 	const errors = validationResult(req);
+
 	if (!errors.isEmpty()) {
 		console.log("Create user request failed validation:", errors.array());
 		res.status(422).send({
 			status: 'fail',
 			data: errors.array(),
 		});
+
 		return;
 	}
 
@@ -89,7 +89,7 @@ const storeFoto = async (req, res) => {
 }
 
 /**
- * GET /:fotoId
+ * GET /:photoId
  */
 
 const getSingleFoto = async (req, res) => {
@@ -141,11 +141,12 @@ const updateFoto = async (req,res)=> {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log("Create user request failed validation:", errors.array());
+	
 		res.status(422).send({
 			status: 'fail',
 			data: errors.array(),
 		});
+
 		return;
 	}
 
@@ -184,7 +185,7 @@ const updateFoto = async (req,res)=> {
 /**
  * Destroy a specific resource
  *
- * DELETE /:fotoId
+ * DELETE /:photoId
  */
 
 const deleteFoto = async (req, res) => {
@@ -207,7 +208,6 @@ const deleteFoto = async (req, res) => {
 	try { 
 		
 		const foto = await foto_user.fetch({ withRelated: ['album']});	
-
 		if (!foto.related('album').length) {
 
 			const delFoto = await foto.destroy()
@@ -218,6 +218,7 @@ const deleteFoto = async (req, res) => {
 				data: `Foto successfully deleted`
 
 					})
+					
 			return}
 
 		else {

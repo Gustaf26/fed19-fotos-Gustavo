@@ -342,7 +342,7 @@ const deleteAlbum = async (req, res) => {
 				status: 'fail',
 				data: 'Unauthorized. You are not allowed to delete this album'
 			})
-		return
+			return
 
 			}
 
