@@ -225,7 +225,6 @@ const updateAlbum = async (req,res)=> {
 	const userId = album.related('user').pluck('id')
 
 	if (userId !=req.user.data.id) {
-	
 		
 		 res.status(403).send({
 
@@ -237,16 +236,11 @@ const updateAlbum = async (req,res)=> {
 
 	let val = validData.photo_id
 
-	try { 
+	if (typeof val == 'number') {
 
-		let comment = [];
-		 let allComments=[]
+		try {
 
-		const allFotos = async () => {
-			
-		for (i=0; i<val.length; i++) {
-
-			let foto = await new Foto({id:val[i]}).fetch({ withRelated: ['user'] })
+		let foto = await new Foto({id:val}).fetch({ withRelated: ['user'] })
 
 			let foto_userId= await foto.related('user').pluck('id')
 
@@ -258,31 +252,76 @@ const updateAlbum = async (req,res)=> {
 					data: 'The foto you are trying to add to this album is not yours'
 				})
 
-				return}
-		
+				return}	
 		
 			const result = await album.fotos().attach(foto)
-			
-			allComments = comment.push(`${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`)}
 
 			res.send({
 
 				status: 'success',
-				data: comment});
+				data: `${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`});
 
 			return}
 
-		allFotos()
+		catch {
 
+			res.status(500).send({
+				status: 'error',
+				data: 'Network error'
+			})
 		}
+	}
+
+	else {
+
+		try { 
+
+			let comment = [];
+			let allComments=[]
+
+			const allFotos = async () => {
+				
+			for (i=0; i<val.length; i++) {
+
+				let foto = await new Foto({id:val[i]}).fetch({ withRelated: ['user'] })
+
+				let foto_userId= await foto.related('user').pluck('id')
+
+				if (foto_userId.toString() !== userId.toString()) {
+
+					res.status(403).send({
+
+						status: 'fail',
+						data: 'The foto you are trying to add to this album is not yours'
+					})
+
+					return}
+			
+		
+				const result = await album.fotos().attach(foto)
+				
+				allComments = comment.push(`${foto.get('title')} with id ${foto.get('id')} has been attached to ${album.get('title')}`)}
+
+				res.send({
+
+					status: 'success',
+					data: comment});
+
+			return}
+
+			allFotos()
+
+			}
 
 		catch (err) {
 
-		res.status(500).send({
-			status: 'error',
-			data: 'Network error'
-		})}
+			res.status(500).send({
+				status: 'error',
+				data: 'Network error'
+			})}}
  }
+
+
 /**
  * Destroy a specific resource
  *

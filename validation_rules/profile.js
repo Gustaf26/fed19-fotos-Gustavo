@@ -16,7 +16,7 @@ const createfoto = [body('title').isLength({ min: 3 }),
 
 const createalbum = [body('title').isLength({ min: 3 })]
 
-const addfoto = [body('photo_id').exists().isLength({min: 1})]
+const addfoto = [body('photo_id').exists().isLength({min: 1}).not().isString()]
 
 const updatefoto = [body('title').isLength({ min: 1 }),
 	body('url').isLength({ min: 1 }),
