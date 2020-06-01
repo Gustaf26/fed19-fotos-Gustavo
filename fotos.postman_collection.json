@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "bd762a54-97d1-474f-9f38-686fcd5a4da8",
+		"name": "fotos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fotos heroku",
+			"item": [
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"ggsy@40\",\n\"password\": \"asdf\",\n\"first_name\":\"Peter\",\n\"last_name\": \"Karlosn\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/register/",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MTAyMzU2NSwiZXhwIjoxNTkxMTA5OTY1fQ._2H-DeY3d4243ECtdEjpI0l48aW4BOIB-2twjEeoYW4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"Johan\",\n\"password\": \"asdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwNTIxMzMwLCJleHAiOjE1OTA2MDc3MzB9.otWAVREeGRgSaLF4aAQh4kH63XiFraroq6Y8ccShLfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwNTIxMzMwLCJleHAiOjE1OTA2MDc3MzB9.otWAVREeGRgSaLF4aAQh4kH63XiFraroq6Y8ccShLfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/fotos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MTAyMzU2NSwiZXhwIjoxNTkxMTA5OTY1fQ._2H-DeY3d4243ECtdEjpI0l48aW4BOIB-2twjEeoYW4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/fotos/3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MTAyMzU2NSwiZXhwIjoxNTkxMTA5OTY1fQ._2H-DeY3d4243ECtdEjpI0l48aW4BOIB-2twjEeoYW4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"photos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwNTIxMzMwLCJleHAiOjE1OTA2MDc3MzB9.otWAVREeGRgSaLF4aAQh4kH63XiFraroq6Y8ccShLfE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"Johan\",\n\"password\": \"asdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/login",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/photos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTk4ODE0LCJleHAiOjE1OTEwODUyMTR9.P4tAgYpqoX0hG123QZ2-1YHNoNwLRj85Gh75paT_Yaw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"On the beach\",\n\"url\": \"beach.se\",\n\"comment\": \"lets surf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTk4ODE0LCJleHAiOjE1OTEwODUyMTR9.P4tAgYpqoX0hG123QZ2-1YHNoNwLRj85Gh75paT_Yaw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Hemma checking netflix movies\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Always on the run\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTI1MjIwLCJleHAiOjE1OTA5Mjg4MjB9.4MP1g8Ya8mcB7rIvF5l19FYNqwN_u_Rp_EwSX2Nvp-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\" :\"Even one more album\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTI1MjIwLCJleHAiOjE1OTA5Mjg4MjB9.4MP1g8Ya8mcB7rIvF5l19FYNqwN_u_Rp_EwSX2Nvp-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\" :\"Even one more album\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"photos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"photo_id\": 15}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums",
+								"2",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+							"protocol": "https",
+							"host": [
+								"gustavo-fotos",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"profile",
+								"albums",
+								"2",
+								"photos",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
