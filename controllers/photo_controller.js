@@ -229,7 +229,7 @@ const deletePhoto = async (req, res) => {
 
 			const albumTitle = photo.related('album').pluck('title')
 
-			const dettaching = photo_album.fotos().detach(photo)
+			const dettaching = await photo_album.fotos().detach(photo)
 
 			const delPhoto = await photo.destroy()
 			
