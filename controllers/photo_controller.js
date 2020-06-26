@@ -1,5 +1,5 @@
 /**
- * Foto Controller
+ * Photo Controller
  */
 
 const models = require('../models');
@@ -7,12 +7,12 @@ const { User, Foto, Album } = require('../models');
 const { matchedData, validationResult } = require('express-validator');
 
 /**
- * Get the authenticated user's fotos
+ * Get the authenticated user's photos
  *
- * GET /fotos
+ * GET /photos
  */
 
-const getFotos = async (req, res) => {
+const getPhotos = async (req, res) => {
 
 	let user = null;
 
@@ -26,7 +26,7 @@ const getFotos = async (req, res) => {
 		res.status(404).send({
 
 			status:'fail',
-			data: 'No fotos available for that user'
+			data: 'No photos available for that user'
 		});
 
 		return;
@@ -34,23 +34,23 @@ const getFotos = async (req, res) => {
 
 	// get this user's fotos
 
-	const fotos = user.related('fotos');
+	const photos = user.related('fotos');
 
 	res.send({
 
 		status: 'success',
 		data: {
-			fotos,
+			photos,
 		},
 	});
 }
 
 /**
- * Create a foto
+ * Create a photo
  *
  */
 
-const storeFoto = async (req, res) => {
+const storePhoto = async (req, res) => {
 
 	const errors = validationResult(req);
 
@@ -68,16 +68,16 @@ const storeFoto = async (req, res) => {
 
 	try {
 		
-		const foto = await new Foto(validData).save()
+		const photo = await new Foto(validData).save()
 
 		const user = await new User({id:req.user.data.id}).fetch()
 		
-		const result = await user.fotos().attach(foto)
+		const result = await user.fotos().attach(photo)
 
 		res.status(201).send({
 
 			status: 'success',
-			data: `Foto with title ${foto.get('title')} and url ${foto.get('url')} has been created`
+			data: `Foto with title ${photo.get('title')} and url ${photo.get('url')} has been created`
 
 		})}
 		
@@ -92,15 +92,15 @@ const storeFoto = async (req, res) => {
  * GET /:photoId
  */
 
-const getSingleFoto = async (req, res) => {
+const getSinglePhoto = async (req, res) => {
 
 	try{ 
 		
-		const foto = await new models.Foto({ id: req.params.photoId })
+		const photo = await new models.Foto({ id: req.params.photoId })
 
 			.fetch({ withRelated: ['user'] });	
 
-		const userId = foto.related('user').pluck('id')
+		const userId = photo.related('user').pluck('id')
 	
 		if (userId !=req.user.data.id) {
 
@@ -113,10 +113,10 @@ const getSingleFoto = async (req, res) => {
 			status: 'success',
 			data: {
 				
-				foto: {
+				photo: {
 					
-					title: foto.get('title'), 
-					url: foto.get('url')}
+					title: photo.get('title'), 
+					url: photo.get('url')}
 				
 			}
 	}); }
@@ -136,7 +136,7 @@ const getSingleFoto = async (req, res) => {
  * Update album attributes 
  */
 
-const updateFoto = async (req,res)=> {
+const updatePhoto = async (req,res)=> {
 
 	const errors = validationResult(req);
 
@@ -152,14 +152,14 @@ const updateFoto = async (req,res)=> {
 
 	const validData = matchedData(req);
 
-	const existingFoto = await new Foto({id: req.params.photoId}).fetch({ withRelated: ['user'] })
+	const existingPhoto = await new Foto({id: req.params.photoId}).fetch({ withRelated: ['user'] })
 
-	if (!existingFoto.related('user').pluck('id')==req.user.data.id || !existingFoto) {
+	if (!existingPhoto.related('user').pluck('id')==req.user.data.id || !existingFoto) {
 
 		res.status(403).send({
 
 			status: 'fail',
-			data: 'You are not allowed to update this foto or the foto doesnt exist'
+			data: 'You are not allowed to update this photo or the photo doesnt exist'
 		})
 
 		return
@@ -167,12 +167,12 @@ const updateFoto = async (req,res)=> {
 
 	try {
 		
-		const foto = await new Foto({id: req.params.photoId}).save(validData)
+		const photo = await new Foto({id: req.params.photoId}).save(validData)
 		
 		res.status(201).send({
 
 			status: 'success',
-			data: `Foto with title ${foto.get('title')} has been updated`})
+			data: `Foto with title ${photo.get('title')} has been updated`})
 	}
 	
 	catch(err) {
@@ -188,29 +188,29 @@ const updateFoto = async (req,res)=> {
  * DELETE /:photoId
  */
 
-const deleteFoto = async (req, res) => {
+const deletePhoto = async (req, res) => {
 
-	const foto_user = await new models.Foto({ id: req.params.photoId })
+	const photo_user = await new models.Foto({ id: req.params.photoId })
 		.fetch({ withRelated: ['user'] });
 
-	const user = foto_user.related('user').pluck('id')
+	const user = photo_user.related('user').pluck('id')
 	
 	if (user !=req.user.data.id) {
 
 			res.status(403).send({
 
 				status: 'fail',
-				data: 'Unauthorized. You are not allowed to delete this foto'
+				data: 'Unauthorized. You are not allowed to delete this photo'
 			})
 		return
 			}
 
 	try { 
 		
-		const foto = await foto_user.fetch({ withRelated: ['album']});	
-		if (!foto.related('album').length) {
+		const photo = await photo_user.fetch({ withRelated: ['album']});	
+		if (!photo.related('album').length) {
 
-			const delFoto = await foto.destroy()
+			const delPhoto = await photo.destroy()
 
 			res.status(200).send({
 
@@ -223,15 +223,15 @@ const deleteFoto = async (req, res) => {
 
 		else {
 			
-			const albumId = foto.related('album').pluck('id')
+			const albumId = photo.related('album').pluck('id')
 
-			const foto_album = await new models.Album({id: albumId}).fetch()
+			const photo_album = await new models.Album({id: albumId}).fetch()
 
-			const albumTitle = foto.related('album').pluck('title')
+			const albumTitle = photo.related('album').pluck('title')
 
-			const dettaching = foto_album.fotos().detach(foto)
+			const dettaching = photo_album.fotos().detach(photo)
 
-			const delFoto = await foto.destroy()
+			const delPhoto = await photo.destroy()
 			
 			res.status(200).send({
 
@@ -255,9 +255,9 @@ const deleteFoto = async (req, res) => {
 
 module.exports = {
 	
-	getFotos,
-	getSingleFoto,
-	storeFoto,
-	deleteFoto,
-	updateFoto
+	getPhotos,
+	getSinglePhoto,
+	storePhoto,
+	deletePhoto,
+	updatePhoto
 }

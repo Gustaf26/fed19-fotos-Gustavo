@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const profileController = require('../controllers/profile_controller');
 const albumsRoutes = require('./albums')
-const fotosRoutes = require('./photos')
+const photosRoutes = require('./photos')
 const auth = require('../controllers/middlewares/auth');
 const authController = require('../controllers/auth_controller');
 const userValidationRules = require('../validation_rules/user');
@@ -30,7 +30,7 @@ router.post('/refresh', authController.refresh);
 router.get('/profile', [auth.validateJwtToken], profileController.getProfile) 
 
 /* Use resource's fotos */
-router.use('/photos', [auth.validateJwtToken], fotosRoutes);
+router.use('/photos', [auth.validateJwtToken], photosRoutes);
 
 /* Use resource's fotos */
 router.use('/albums', [auth.validateJwtToken], albumsRoutes);

@@ -19,7 +19,7 @@ router.put('/:albumId', [profileValidationRules.createalbum],albumController.upd
 
 
 /*Add an existing foto to album */
-router.post('/:albumId/photos', [profileValidationRules.addfoto], albumController.addToAlbum)
+router.post('/:albumId/photos', [profileValidationRules.addphoto], albumController.addToAlbum)
 
 
 /* Delete resource's single album */
