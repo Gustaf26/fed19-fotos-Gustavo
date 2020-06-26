@@ -77,7 +77,7 @@ const storePhoto = async (req, res) => {
 		res.status(201).send({
 
 			status: 'success',
-			data: `Foto with title ${photo.get('title')} and url ${photo.get('url')} has been created`
+			data: `Photo with title ${photo.get('title')} and url ${photo.get('url')} has been created`
 
 		})}
 		
@@ -154,7 +154,7 @@ const updatePhoto = async (req,res)=> {
 
 	const existingPhoto = await new Foto({id: req.params.photoId}).fetch({ withRelated: ['user'] })
 
-	if (!existingPhoto.related('user').pluck('id')==req.user.data.id || !existingFoto) {
+	if (!existingPhoto.related('user').pluck('id')==req.user.data.id || !existingPhoto) {
 
 		res.status(403).send({
 
@@ -236,7 +236,7 @@ const deletePhoto = async (req, res) => {
 			res.status(200).send({
 
 				status: 'success',
-				data: `Foto successfully deleted from album ${albumTitle}`
+				data: `Photo successfully deleted from album ${albumTitle}`
 
 				})
 		}}

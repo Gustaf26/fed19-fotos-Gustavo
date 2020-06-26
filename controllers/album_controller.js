@@ -32,7 +32,7 @@ const getAlbums = async (req, res) => {
 
 				albums: {
 
-					titles: albums.map(album=>album.get('title'))
+					albums: albums
 
 				}
 			},
@@ -118,16 +118,7 @@ const getSingleAlbum = async (req, res) => {
 	
 			}
 
-		const fotoTitles = album.related('fotos').pluck('title') 
-		const fotoUrls= album.related('fotos').pluck('url')
-
-		let fotos = []
-
-		for (i=0; i<album.related('fotos').pluck('title').length;i++){
-
-			fotos.push({foto: fotoTitles[i], url: fotoUrls[i]})
-
-		}
+		const photos = album.related('fotos') 
 
 			res.send({
 
@@ -137,7 +128,7 @@ const getSingleAlbum = async (req, res) => {
 					album: {
 
 						title: album.get('title'),
-						fotos}}
+						photos}}
 				    });
 }
 

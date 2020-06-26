@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const albumController = require('../controllers/album_controller');
-const profileValidationRules = require('../validation_rules/profile');
+const albumsValidationRules = require('../validation_rules/albums');
 
 
 /* Get albums */
@@ -12,14 +12,14 @@ router.get('/:albumId', albumController.getSingleAlbum);
 
 
 /* Create a album to this user's collection */
-router.post('/', [profileValidationRules.createalbum],albumController.storeAlbum);
+router.post('/', [albumsValidationRules.createalbum],albumController.storeAlbum);
 
 /*Update album's attributes*/
-router.put('/:albumId', [profileValidationRules.createalbum],albumController.updateAlbum)
+router.put('/:albumId', [albumsValidationRules.createalbum],albumController.updateAlbum)
 
 
 /*Add an existing foto to album */
-router.post('/:albumId/photos', [profileValidationRules.addphoto], albumController.addToAlbum)
+router.post('/:albumId/photos', [albumsValidationRules.addphoto], albumController.addToAlbum)
 
 
 /* Delete resource's single album */
