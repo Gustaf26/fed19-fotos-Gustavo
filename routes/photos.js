@@ -18,5 +18,4 @@ router.put('/:photoId', [photoValidationRules.updatephoto],photoController.updat
 /* Delete resource's single foto */
 router.delete('/:photoId', photoController.deletePhoto);
 
-
 module.exports = router;

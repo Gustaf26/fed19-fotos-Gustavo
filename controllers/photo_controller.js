@@ -76,8 +76,8 @@ const storePhoto = async (req, res) => {
 
 		res.status(201).send({
 
-			status: 'success',
-			data: `Photo with title ${photo.get('title')} and url ${photo.get('url')} has been created`
+			status: 'success, photo created',
+			data: photo
 
 		})}
 		
