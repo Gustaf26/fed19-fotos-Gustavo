@@ -152,7 +152,7 @@ const updatePhoto = async (req,res)=> {
 		res.status(201).send({
 
 			status: 'success',
-			data: `Photo with title ${photo.get('title')} has been updated`})}
+			data: photo})}
 	
 	catch(err) {
 		
