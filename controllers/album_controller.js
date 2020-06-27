@@ -73,7 +73,9 @@ const storeAlbum = async (req, res) => {
 		res.status(201).send({
 
 			status: 'success',
-			data: result})}
+			data: {
+				album: album,
+			    user: user}})}
 	
 	catch(err) {
 		
@@ -229,7 +231,9 @@ const updateAlbum = async (req,res)=> {
 			res.send({
 
 				status: 'success',
-				data: album});
+				data: {
+					album: album,
+					photo: photo}});
 
 			return}
 
