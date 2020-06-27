@@ -362,7 +362,7 @@ const deleteInAlbum = async (req,res) => {
 			res.status(200).send({
 
 				status: 'success',
-				data: `Photo successfully dettached from album with title ${album.get('title')}`})}
+				data: album})}
 
 	catch {
 
