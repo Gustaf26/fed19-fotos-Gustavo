@@ -32,10 +32,7 @@ const getProfile = async (req, res) => {
 
 		status: 'success',
 		data: {
-			user: {
-				firstName: user.get('first_name'),
-				lastName: user.get('last_name'),
-				email: user.get('email')}}})}
+			user: user}})}
 
 
 module.exports = {getProfile}

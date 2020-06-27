@@ -187,7 +187,9 @@ const updateAlbum = async (req,res)=> {
 
 	const validData = matchedData(req);
 	
-	const album = await new models.Album({ id: req.params.albumId }).fetch({ withRelated: ['user'] })
+	const album = await new models.Album({ id: req.params.albumId })
+	
+		.fetch({ withRelated: ['user'] })
 
 	const userId = album.related('user').pluck('id')
 
