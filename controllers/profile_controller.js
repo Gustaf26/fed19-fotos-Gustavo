@@ -15,6 +15,7 @@ const { User } = require('../models');
 const getProfile = async (req, res) => {
 	
 	// retrieve authenticated user's profile
+	
 	let user = null;
 	
 	try {
@@ -26,7 +27,7 @@ const getProfile = async (req, res) => {
 		res.sendStatus(404);
 		throw err}
 
-	// send (parts of) user profile to requester
+	// send user profile to requester
 
 	res.send({
 

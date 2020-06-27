@@ -26,11 +26,8 @@ const getAlbums = async (req, res) => {
 		const albums = await user.related('albums');
 
 		res.send({
-
 			status: 'success',
-			data: {
-				albums: {
-					albums: albums}}});}
+			data: albums});}
 					
 	catch (err) {
 
@@ -54,6 +51,7 @@ const storeAlbum = async (req, res) => {
 	if (!errors.isEmpty()) {
 
 		console.log("Create user request failed validation:", errors.array());
+
 		res.status(422).send({
 			status: 'fail',
 			data: errors.array()});
@@ -99,24 +97,19 @@ const getSingleAlbum = async (req, res) => {
 
 		const album = await new models.Album({ id: req.params.albumId })
 
-			.fetch({ withRelated: ['photos'] });
+		.fetch({ withRelated: ['photos'] });
 	
 		if (userId !=req.user.data.id) {
 	
 			throw err}
-
 			
 		res.send({
-
 			status: 'success',
-			data: {
-				album: {
-				album: album }}});}
+			data: album});}
 
 	catch (err) {
 		
 		res.status(404).send({
-
 			status: 'fail',
 			data: 'resource not found or not belonging to current user'})}}
 
@@ -227,7 +220,8 @@ const updateAlbum = async (req,res)=> {
 		
 			const attaching = await album.photos().attach(photo)
 			
-			const updatedAlbum = await new Album({ id: req.params.albumId }).fetch({ withRelated: ['photos']})
+			const updatedAlbum = await new Album({ id: req.params.albumId })
+			.fetch({ withRelated: ['photos']})
 	
 			res.send({
 
@@ -275,7 +269,7 @@ const updateAlbum = async (req,res)=> {
 				res.send({
 
 					status: 'success',
-					data: comment});
+					data: photo});
 
 			return}
 
@@ -342,19 +336,18 @@ const deleteAlbum = async (req, res) => {
 const deleteInAlbum = async (req,res) => {
 
 	const album = await new models.Album({ id: req.params.albumId })
-		.fetch({ withRelated: ['user'] });
+	.fetch({ withRelated: ['user'] });
 
 	const user = album.related('user').pluck('id')
 
 	const photo = await new models.Photo({ id: req.params.photoId })
-		.fetch({ withRelated: ['user'] });;	
+	.fetch({ withRelated: ['user'] });;	
 
 	const secondUser = photo.related('user').pluck('id')
 	
 	if (user !=req.user.data.id || secondUser !=req.user.data.id) {
 
 			res.status(403).send({
-
 				status: 'fail',
 				data: 'Unauthorized. You are not allowed to delete this foto or to change this album'
 			})
@@ -366,14 +359,12 @@ const deleteInAlbum = async (req,res) => {
 		const dettaching = await photo.album().detach(album)
 
 			res.status(200).send({
-
 				status: 'success',
 				data: album})}
 
 	catch {
 
 		res.status(500).send({
-
 			status: 'error',
 			message: 'Something not working fine with the database'});}}
 

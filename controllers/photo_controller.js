@@ -3,7 +3,7 @@
  */
 
 const models = require('../models');
-const { User, Photo, Album } = require('../models');
+const { User, Photo } = require('../models');
 const { matchedData, validationResult } = require('express-validator');
 
 /**
@@ -22,15 +22,12 @@ const getPhotos = async (req, res) => {
 	
 	} catch (err) {
 	
-		
 		res.status(404).send({
 
 			status:'fail',
-			data: 'No photos available for that user'
-		});
+			data: 'No photos available for that user'});
 
-		return;
-	}
+		return}
 
 	// get this user's fotos
 
@@ -40,10 +37,7 @@ const getPhotos = async (req, res) => {
 
 		status: 'success',
 		data: {
-			photos,
-		},
-	});
-}
+			photos}})}
 
 /**
  * Create a photo
@@ -75,7 +69,6 @@ const storePhoto = async (req, res) => {
 		const result = await user.photos().attach(photo)
 
 		res.status(201).send({
-
 			status: 'success, photo created',
 			data: photo})}
 		
@@ -94,7 +87,7 @@ const getSinglePhoto = async (req, res) => {
 		
 		const photo = await new models.Photo({ id: req.params.photoId })
 
-			.fetch({ withRelated: ['user'] });	
+		.fetch({ withRelated: ['user'] });	
 
 		const userId = photo.related('user').pluck('id')
 	
@@ -103,13 +96,10 @@ const getSinglePhoto = async (req, res) => {
 			throw err}
 
 		res.send({
-
 			status: 'success',
-			data: {
-				photo: photo}})}
+			data: photo})}
 
 	catch (err) {res.status(404).send({
-
 		status: 'Fail',
 		message: 'No such photo found for this user'})}}
 
@@ -150,7 +140,6 @@ const updatePhoto = async (req,res)=> {
 		const photo = await new Photo({id: req.params.photoId}).save(validData)
 		
 		res.status(201).send({
-
 			status: 'success',
 			data: photo})}
 	
@@ -168,14 +157,13 @@ const updatePhoto = async (req,res)=> {
 const deletePhoto = async (req, res) => {
 
 	const photo_user = await new models.Photo({ id: req.params.photoId })
-		.fetch({ withRelated: ['user'] });
+	.fetch({ withRelated: ['user'] });
 
 	const user = photo_user.related('user').pluck('id')
 	
 	if (user !=req.user.data.id) {
 
 			res.status(403).send({
-
 				status: 'fail',
 				data: 'Unauthorized. You are not allowed to delete this photo'})
 
@@ -189,7 +177,6 @@ const deletePhoto = async (req, res) => {
 			const delPhoto = await photo.destroy()
 
 			res.status(200).send({
-
 				status: 'success',
 				data: `Foto successfully deleted`})
 					
@@ -199,7 +186,8 @@ const deletePhoto = async (req, res) => {
 			
 			const albumId = photo.related('album').pluck('id')
 
-			const photo_album = await new models.Album({id: albumId}).fetch()
+			const photo_album = await new models.Album({id: albumId})
+			.fetch()
 
 			const albumTitle = photo.related('album').pluck('title')
 
@@ -215,7 +203,6 @@ const deletePhoto = async (req, res) => {
 	catch {
 
 		res.status(500).send({
-
 			status: 'error',
 			message: 'Something not working fine with the database'})}}
 
