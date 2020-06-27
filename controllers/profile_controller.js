@@ -3,8 +3,7 @@
  */
 
 
-const { User, Foto, Album } = require('../models');
-
+const { User } = require('../models');
 
 
 /**
@@ -25,8 +24,7 @@ const getProfile = async (req, res) => {
 	} catch (err) {
 		
 		res.sendStatus(404);
-		throw err;
-	}
+		throw err}
 
 	// send (parts of) user profile to requester
 
@@ -35,19 +33,9 @@ const getProfile = async (req, res) => {
 		status: 'success',
 		data: {
 			user: {
-
 				firstName: user.get('first_name'),
 				lastName: user.get('last_name'),
-				email: user.get('email'),
-			},
-		}
-	});
-}
+				email: user.get('email')}}})}
 
 
-	
-
-module.exports = {
-
-	getProfile,
-}
+module.exports = {getProfile}

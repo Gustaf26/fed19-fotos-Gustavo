@@ -8,8 +8,8 @@ module.exports = (bookshelf) => {
 
 		user() {return this.belongsToMany('User')},
 		
-		fotos() {
-			return this.belongsToMany('Foto');
+		photos() {
+			return this.belongsToMany('Photo');
 		},
 	});
 }

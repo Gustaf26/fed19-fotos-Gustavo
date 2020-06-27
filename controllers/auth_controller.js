@@ -24,11 +24,9 @@ const register = async (req, res) => {
 		res.status(422).send({
 	
 			status: 'fail',
-            data: errors.array(),
-	
-		});
-        return;
-    }
+            data: errors.array()});
+		
+		return}
 
     const validData = matchedData(req);
 
@@ -43,12 +41,9 @@ const register = async (req, res) => {
 		res.status(500).send({
 	
 			status: 'error',
-            message: 'Exception thrown when hashing the password.',
+            message: 'Exception thrown when hashing the password.'});
 	
-		});
-	
-		throw error;
-    }
+		throw error}
 
     try {
 	
@@ -59,22 +54,16 @@ const register = async (req, res) => {
         res.status(201).send({
 	
 			status: 'success',
-            data: `User with email ${user.get('email')} and password ${user.get('password')} succeded.. Go in to login endpoint to log in`,
-	
-		});
+            data: `User with email ${user.get('email')} and password ${user.get('password')} succeded.. Go in to login endpoint to log in`});
 
     } catch (error) {
 	
 		res.status(500).send({
 	
 			status: 'error',
-            message: 'Exception thrown in database when creating a new user.',
+            message: 'Exception thrown in database when creating a new user.'});
 	
-		});
-	
-		throw error;
-    }
-}
+		throw error}}
 
 /**
  * Issue a access-token and a refresh-token for a user
@@ -91,23 +80,17 @@ const login = async (req, res) => {
 		res.status(401).send({
 	
 			status: 'fail',
-			data: 'Authentication Required.',
-		});
+			data: 'Authentication Required.'});
 	
-		return;
-	}
+		return}
 
 	// construct jwt payload
 	
 	const payload = {
 
 		data : {
-	
-		id: user.get('id'),
-		email: user.get('email')}
-
-		//	is_admin: user.get('is_admin'),}
-	};
+			id: user.get('id'),
+			email: user.get('email')}};
 
 	// sign payload and get access-token
 	const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME || '1h' });
@@ -120,10 +103,7 @@ const login = async (req, res) => {
 		status: 'success',
 		data: {
 			access_token,
-			refresh_token,
-		},
-	});
-}
+			refresh_token}})}
 
 /**
  * Issue a new access-token using a refresh-token
@@ -139,13 +119,10 @@ const refresh = (req, res) => {
 	if (!token) {
 
 		res.status(401).send({
-
 			status: 'fail',
-			data: 'No token found in request headers.'
-
-		});
-		return;
-	}
+			data: 'No token found in request headers.'});
+		
+		return}
 
 	try {
 		// verify token using the refresh token secret
@@ -157,6 +134,7 @@ const refresh = (req, res) => {
 
 			data: data
 		}
+
 		// issue a new token using the access token secret
 		const access_token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_LIFETIME || '1h' });
 
@@ -165,31 +143,25 @@ const refresh = (req, res) => {
 
 			status: 'success',
 			data: {
-
-				access_token,
-			}
-		})
+				access_token}})
 
 	} catch (err) {
 
 		res.status(403).send({
 
 			status: 'fail',
-			data: 'Invalid token.',
-		});
+			data: 'Invalid token.'});
 
-		return;
-	}
-}
+		return}}
 
 /**
  * Get token from HTTP headers
  */
+
 const getTokenFromHeaders = (req) => {
 	// Check that we have Authorization header
 	if (!req.headers.authorization) {
-		return false;
-	}
+		return false}
 
 	// Split authorization header into its pieces
 	// "Bearer eyJhbGciOi[..]JtbLU"
@@ -198,17 +170,17 @@ const getTokenFromHeaders = (req) => {
 
 	// Check that the Authorization type is Bearer
 	if (authType.toLowerCase() !== "bearer") {
-		return false;
-	}
+		return false}
 
-	return token;
-}
+	return token}
+
 
 module.exports = {
 
 	login,
 	refresh,
 	register,
-	getTokenFromHeaders,
+	getTokenFromHeaders
+	
 }
 

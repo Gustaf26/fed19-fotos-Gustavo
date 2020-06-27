@@ -3,7 +3,7 @@
  */
 
 const models = require('../models');
-const { User, Foto, Album } = require('../models');
+const { User, Photo, Album } = require('../models');
 const { matchedData, validationResult } = require('express-validator');
 
 
@@ -97,24 +97,19 @@ const getSingleAlbum = async (req, res) => {
 
 		const album = await new models.Album({ id: req.params.albumId })
 
-			.fetch({ withRelated: ['fotos'] });
+			.fetch({ withRelated: ['photos'] });
 	
 		if (userId !=req.user.data.id) {
 	
-			throw err
-	
-			}
+			throw err}
 
-		const photos = album.related('fotos') 
+			
+		res.send({
 
-			res.send({
-
-				status: 'success',
-
-				data: {
-					album: {
-						title: album.get('title'),
-						photos  }}});}
+			status: 'success',
+			data: {
+				album: {
+				album: album }}});}
 
 	catch (err) {
 		
@@ -133,13 +128,14 @@ const updateAlbum = async (req,res)=> {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log("Create user request failed validation:", errors.array());
+		console.log("Create user request failed validation:", 
+		
+		errors.array());
 		res.status(422).send({
 			status: 'fail',
 			data: errors.array()});
 
-		return;
-	}
+		return}
 
 	const validData = matchedData(req);
 
@@ -162,8 +158,7 @@ const updateAlbum = async (req,res)=> {
 		res.status(201).send({
 
 			status: 'success',
-			data: `Album with title ${album.get('title')} has been updated succesfully`})
-	}
+			data: album})}
 	
 	catch {
 		
@@ -212,7 +207,7 @@ const updateAlbum = async (req,res)=> {
 
 		try {
 
-		let photo = await new Foto({id:val}).fetch({ withRelated: ['user'] })
+		let photo = await new Photo({id:val}).fetch({ withRelated: ['user'] })
 
 			let photo_userId= await photo.related('user').pluck('id')
 
@@ -226,12 +221,13 @@ const updateAlbum = async (req,res)=> {
 
 				return}	
 		
-			const result = await album.fotos().attach(photo)
+			const result = await album.photos().attach(photo)
+			
 
 			res.send({
 
 				status: 'success',
-				data: `${photo.get('title')} with id ${photo.get('id')} has been attached to ${album.get('title')}`});
+				data: album});
 
 			return}
 
@@ -248,11 +244,11 @@ const updateAlbum = async (req,res)=> {
 			let comment = [];
 			let allComments=[]
 
-			const allFotos = async () => {
+			const allPhotos = async () => {
 				
 			for (i=0; i < val.length; i++) {
 
-				let photo = await new Foto({id:val[i]}).fetch({ withRelated: ['user'] })
+				let photo = await new Photo({id:val[i]}).fetch({ withRelated: ['user'] })
 
 				let photo_userId= await photo.related('user').pluck('id')
 
@@ -261,13 +257,12 @@ const updateAlbum = async (req,res)=> {
 					res.status(403).send({
 
 						status: 'fail',
-						data: 'The photo you are trying to add to this album is not yours'
-					})
+						data: 'The photo you are trying to add to this album is not yours'})
 
 					return}
 			
 		
-				const result = await album.fotos().attach(photo)
+				const result = await album.photos().attach(photo)
 				
 				allComments = comment.push(`${photo.get('title')} with id ${photo.get('id')} has been attached to ${album.get('title')}`)}
 
@@ -278,7 +273,7 @@ const updateAlbum = async (req,res)=> {
 
 			return}
 
-			allFotos()}
+			allPhotos()}
 
 		catch (err) {
 
@@ -313,15 +308,15 @@ const deleteAlbum = async (req, res) => {
 
 		try { 
 
-			const album = await album_user.fetch({ withRelated: ['fotos'] });	
+			const album = await album_user.fetch({ withRelated: ['photos'] });	
 
 			if (!album) {
 
 					throw err}
 
-			const photos = album.related('fotos')
+			const photos = album.related('photos')
 
-			const dettaching = await photos.map(foto=>album.fotos().detach(foto))
+			const dettaching = await photos.map(photo=>album.photos().detach(photo))
 
 			const delAlbum = await album.destroy()
 
@@ -345,7 +340,7 @@ const deleteInAlbum = async (req,res) => {
 
 	const user = album.related('user').pluck('id')
 
-	const photo = await new models.Foto({ id: req.params.photoId })
+	const photo = await new models.Photo({ id: req.params.photoId })
 		.fetch({ withRelated: ['user'] });;	
 
 	const secondUser = photo.related('user').pluck('id')
@@ -374,9 +369,7 @@ const deleteInAlbum = async (req,res) => {
 		res.status(500).send({
 
 			status: 'error',
-			message: 'Something not working fine with the database',
-
-			});}}
+			message: 'Something not working fine with the database'});}}
 
 module.exports = {
 	

@@ -10,6 +10,7 @@ const updatephoto = [body('title').isLength({ min: 1 }),
     body('comment').isLength({ min: 1 })]
     
 module.exports = {
+    
         createphoto,
         updatephoto
     }

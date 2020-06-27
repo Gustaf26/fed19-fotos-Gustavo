@@ -5,13 +5,15 @@
 const bcrypt = require('bcrypt');
 
 module.exports = (bookshelf) => {
+
 	return bookshelf.model('User', {
+		
 		tableName: 'users',
 		albums() {
 			return this.belongsToMany('Album');
 		},
-		fotos(){
-			return this.belongsToMany('Foto')
+		photos(){
+			return this.belongsToMany('Photo')
 		}
 	}, {
 		hashSaltRounds: 10,
@@ -21,11 +23,12 @@ module.exports = (bookshelf) => {
 		},
 
 		async login(email, password) {
+
 			// check if user exists
 			const user = await new this({ email }).fetch({ require: false });
+
 			if (!user) {
-				return false;
-			}
+				return false;}
 
 			// get hashed password from db
 			const hash = user.get('password');
@@ -35,7 +38,4 @@ module.exports = (bookshelf) => {
 			// return user if hashes match, otherwise false
 			return (await bcrypt.compare(password, hash))
 				? user
-				: false;
-		},
-	});
-};
+				: false}})};
