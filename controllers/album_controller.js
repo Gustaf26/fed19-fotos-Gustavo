@@ -225,15 +225,15 @@ const updateAlbum = async (req,res)=> {
 
 				return}	
 		
-			const result = await album.photos().attach(photo)
+			const attaching = await album.photos().attach(photo)
 			
-
+			const updatedAlbum = await new Album({ id: req.params.albumId }).fetch({ withRelated: ['photos']})
+	
 			res.send({
 
 				status: 'success',
 				data: {
-					album: album,
-					photo: photo}});
+					album: updatedAlbum}});
 
 			return}
 
