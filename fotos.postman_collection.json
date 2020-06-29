@@ -9,7 +9,7 @@
 			"name": "fotos heroku",
 			"item": [
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos",
+					"name": "https://gustavo-fotos.herokuapp.com/register/",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -81,14 +81,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums",
+					"name": "https://gustavo-fotos.herokuapp.com/albums",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwNTIxMzMwLCJleHAiOjE1OTA2MDc3MzB9.otWAVREeGRgSaLF4aAQh4kH63XiFraroq6Y8ccShLfE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -96,7 +96,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -104,7 +104,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums"
 							]
 						}
@@ -112,14 +111,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"name": "https://gustavo-fotos.herokuapp.com/albums/2",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJ1c2VybmFtZSI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwNTIxMzMwLCJleHAiOjE1OTA2MDc3MzB9.otWAVREeGRgSaLF4aAQh4kH63XiFraroq6Y8ccShLfE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -127,7 +126,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums/2",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -135,7 +134,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums",
 								"2"
 							]
@@ -144,14 +142,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/fotos",
+					"name": "https://gustavo-fotos.herokuapp.com/photos",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MTAyMzU2NSwiZXhwIjoxNTkxMTA5OTY1fQ._2H-DeY3d4243ECtdEjpI0l48aW4BOIB-2twjEeoYW4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -159,7 +157,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos",
+							"raw": "https://gustavo-fotos.herokuapp.com/photos",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -167,7 +165,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"photos"
 							]
 						}
@@ -175,14 +172,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/fotos/3",
+					"name": "https://gustavo-fotos.herokuapp.com/photos/3",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MTAyMzU2NSwiZXhwIjoxNTkxMTA5OTY1fQ._2H-DeY3d4243ECtdEjpI0l48aW4BOIB-2twjEeoYW4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -190,7 +187,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+							"raw": "https://gustavo-fotos.herokuapp.com/photos/3",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -198,7 +195,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"photos",
 								"3"
 							]
@@ -246,14 +242,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/photos",
+					"name": "https://gustavo-fotos.herokuapp.com/photos",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTk4ODE0LCJleHAiOjE1OTEwODUyMTR9.P4tAgYpqoX0hG123QZ2-1YHNoNwLRj85Gh75paT_Yaw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -262,7 +258,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\": \"On the beach\",\n\"url\": \"beach.se\",\n\"comment\": \"lets surf\"\n}",
+							"raw": "{\"title\": \"On the sun\",\n\"url\": \"sun.se\",\n\"comment\": \"lets bade\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -270,7 +266,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos",
+							"raw": "https://gustavo-fotos.herokuapp.com/photos",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -278,7 +274,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"photos"
 							]
 						}
@@ -286,14 +281,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums",
+					"name": "https://gustavo-fotos.herokuapp.com/albums",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTk4ODE0LCJleHAiOjE1OTEwODUyMTR9.P4tAgYpqoX0hG123QZ2-1YHNoNwLRj85Gh75paT_Yaw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -310,7 +305,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -318,7 +313,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums"
 							]
 						}
@@ -326,8 +320,18 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"name": "https://gustavo-fotos.herokuapp.com/albums/2",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -340,7 +344,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums/2",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -348,7 +352,6 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums",
 								"2"
 							]
@@ -357,14 +360,14 @@
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+					"name": "https://gustavo-fotos.herokuapp.com/albums/81",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTI1MjIwLCJleHAiOjE1OTA5Mjg4MjB9.4MP1g8Ya8mcB7rIvF5l19FYNqwN_u_Rp_EwSX2Nvp-k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -381,7 +384,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums/81",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -389,23 +392,22 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums",
-								"2"
+								"81"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+					"name": "https://gustavo-fotos.herokuapp.com/photos/131",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJlbWFpbCI6Ikd1c3Rhdm8ifSwiaWF0IjoxNTkwOTI1MjIwLCJleHAiOjE1OTA5Mjg4MjB9.4MP1g8Ya8mcB7rIvF5l19FYNqwN_u_Rp_EwSX2Nvp-k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
 									"type": "string"
 								}
 							]
@@ -422,7 +424,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/photos/3",
+							"raw": "https://gustavo-fotos.herokuapp.com/photos/131",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -430,22 +432,31 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"photos",
-								"3"
+								"131"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+					"name": "https://gustavo-fotos.herokuapp.com/albums/91/photos/",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"photo_id\": 15}",
+							"raw": "{\"photo_id\": 3}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -453,7 +464,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums/91/photos/",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -461,18 +472,28 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums",
-								"2",
-								"photos"
+								"91",
+								"photos",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+					"name": "https://gustavo-fotos.herokuapp.com/albums/91/photos/3",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6IkpvaGFuIn0sImlhdCI6MTU5MzQzNDQ0MiwiZXhwIjoxNTkzNTIwODQyfQ.q-fpKLxKOT0ECopvD1rRvyJnFb-3FB_b9QHCDf59-x0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -485,7 +506,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://gustavo-fotos.herokuapp.com/profile/albums/2/photos/15",
+							"raw": "https://gustavo-fotos.herokuapp.com/albums/91/photos/3",
 							"protocol": "https",
 							"host": [
 								"gustavo-fotos",
@@ -493,11 +514,10 @@
 								"com"
 							],
 							"path": [
-								"profile",
 								"albums",
-								"2",
+								"91",
 								"photos",
-								"15"
+								"3"
 							]
 						}
 					},
