@@ -123,7 +123,7 @@ const updateAlbum = async (req,res)=> {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log("Create user request failed validation:", 
+		console.log("Update album request failed validation:", 
 		
 		errors.array());
 		res.status(422).send({
@@ -134,17 +134,23 @@ const updateAlbum = async (req,res)=> {
 
 	const validData = matchedData(req);
 
-	const existingAlbum = await new Album({id: req.params.albumId}).fetch({ withRelated: ['user'] })
+	const user = await new User({id:req.user.data.id}).fetch({ withRelated: ['albums'] })
 
-	if (!existingAlbum.related('user').pluck('id')==req.user.data.id || !existingAlbum) {
+	let userAlbums = []
+	userAlbums.push(user.related('albums').pluck('id'))
+	
+	let existing= userAlbums[0].filter(alb=>alb==req.params.albumId)
+	console.log(existing)
+	 
+	if (!existing.length) {
 
-		res.status(403).send({
+	   res.status(403).send({
 
-			status: 'fail',
-			data: 'You are not allowed to update this album or the album doesnt exist'
-		})
+	 		status: 'fail',
+	 		data: 'You are not allowed to update this album or the album doesnt exist'
+	 	})
 
-		return}
+	 	return}
 
 	try {
 		
@@ -357,7 +363,7 @@ const deleteInAlbum = async (req,res) => {
 	try { 
 		
 		const dettaching = await photo.album().detach(album)
-		
+
 		const updatedAlbum = await new models.Album({ id: req.params.albumId })
 		.fetch({ withRelated: ['photos'] });
 
