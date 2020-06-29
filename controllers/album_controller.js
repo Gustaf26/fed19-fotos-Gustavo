@@ -357,10 +357,13 @@ const deleteInAlbum = async (req,res) => {
 	try { 
 		
 		const dettaching = await photo.album().detach(album)
+		
+		const updatedAlbum = await new models.Album({ id: req.params.albumId })
+		.fetch({ withRelated: ['photos'] });
 
 			res.status(200).send({
 				status: 'success',
-				data: album})}
+				data: updatedAlbum})}
 
 	catch {
 
