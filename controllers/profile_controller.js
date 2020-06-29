@@ -2,9 +2,7 @@
  * Profile controller
  */
 
-
 const { User } = require('../models');
-
 
 /**
  * Get authenticated user's profile
