@@ -206,7 +206,7 @@ const updateAlbum = async (req,res)=> {
 
 	let val = validData.photo_id
 
-	if (typeof val == 'number') {
+	if (typeof val === 'number') {
 
 		try {
 
@@ -245,47 +245,48 @@ const updateAlbum = async (req,res)=> {
 
 	else {
 
-		try { 
+		
 
-			let comment = [];
-			let allComments=[]
+		 try { 
 
-			const allPhotos = async () => {
+		 	let allComments = [];
+		 	 val=[...val]
+
+		 	const allPhotos = async () => {
 				
 			for (i=0; i < val.length; i++) {
 
-				let photo = await new Photo({id:val[i]}).fetch({ withRelated: ['user'] })
+		 		let photo = await new Photo({id:val[i]}).fetch({ withRelated: ['user'] })
 
-				let photo_userId= await photo.related('user').pluck('id')
+		 		let photo_userId= await photo.related('user').pluck('id')
 
-				if (photo_userId.toString() !== userId.toString()) {
+		 		if (photo_userId.toString() !== userId.toString()) {
 
-					res.status(403).send({
+		 			res.status(403).send({
 
-						status: 'fail',
-						data: 'The photo you are trying to add to this album is not yours'})
+		 				status: 'fail',
+		 				data: 'The photo you are trying to add to this album is not yours'})
 
-					return}
+		 			return}
 			
 		
-				const result = await album.photos().attach(photo)
-				
-				allComments = comment.push(`${photo.get('title')} with id ${photo.get('id')} has been attached to ${album.get('title')}`)}
+		 		const result = await album.photos().attach(photo) }}
 
-				res.send({
+			 allPhotos();
 
-					status: 'success',
-					data: photo});
+			 res.send({
 
-			return}
+				status: 'success',
+				data: `Photos with ids ${val} have been attached to album with id ${album.id}`});
+			 
+			 return}
 
-			allPhotos()}
+		 catch (err) {
 
-		catch (err) {
-
-			res.status(500).send({
-				status: 'error',
-				data: 'Network error'})}}}
+		 	res.status(500).send({
+		 		status: 'error',
+		 		data: 'Network error'})}}
+			}
 
 
 /**
