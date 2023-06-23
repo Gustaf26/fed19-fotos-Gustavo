@@ -7,7 +7,7 @@
     "dev": "SET DEBUG=test:* && nodemon --inspect ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "bookshelf": "^1.1.1",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
